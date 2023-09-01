@@ -1,4 +1,4 @@
 # Level: ??
-> epic music blasts through your headphones
+> ... but then a choir starts singing in Latin.
 ***
 ### **I don't even dare to come in here...... yet...... :)**  
