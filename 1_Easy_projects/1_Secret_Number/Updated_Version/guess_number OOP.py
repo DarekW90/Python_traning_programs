@@ -20,8 +20,12 @@ def main():
             print("Invalid choice. Please enter 1, 2, or 3.")
         
         escape = input('Continue? Press Y to continue or N to exit: ').lower()
+        
+        while escape not in ('y','n'):
+            print ("Please enter correct value: ")
+            escape = input('Continue? Press Y to continue or N to exit: ').lower()
         if escape != 'y':
-            print("Thank you for playing!")
+            print("\nThank you for playing!")
             break
 
 if __name__ == "__main__":
