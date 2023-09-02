@@ -13,7 +13,7 @@ def getValidWord(words):
 def gameSelect():
     print('Please type 1 for English words or 2 for Polish words')
     print('Wpisz 1 dla słow słownika Angielskiego, lub 2 dla słownika Polskiego')
-    language = input('Select (1/2): ')
+    language = int(input('Select (1/2): '))
     
     if language == 1:
         return getValidWord(wordsEng)
@@ -27,7 +27,7 @@ def hangman():
     
     word = gameSelect()
     wordLetters = set(word)
-    alphabet = set(string.ascii_uppercase)
+    alphabet = set(string.ascii_uppercase + 'ĄĆĘŁŃÓŚŹŻ')
     usedLetters = set()
     
     lives = 10
