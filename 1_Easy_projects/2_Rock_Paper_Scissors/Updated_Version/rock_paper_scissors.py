@@ -1,4 +1,5 @@
 import random
+import time
 
 def isWin(player, opponent):
     
@@ -58,8 +59,8 @@ def play2():
         computer1Choice = choices[computer1]
         computer2Choice = choices[computer2]
         
-        print ('\nComputer 1 choice is: ' + computer1Choice)
-        print ('\nComputer 2 choice is: ' + computer2Choice)
+        print (f'\n{player1} choice is: {computer1Choice}')
+        print (f'\n{player2} choice is: {computer2Choice}')
         
         
         #print ('Computer choice is: ' + computerChoice)
@@ -68,11 +69,12 @@ def play2():
             print ('\n>> It\'s a tie <<')
             ties += 1
         elif isWin (computer1, computer2):
-            print('\n>> Computer1 won! <<')
+            print(f'\n>> {player1} won! <<')
             player1Wins += 1
         else: 
-            print('\n>> Computer1 lost! <<')
+            print(f'\n>> {player2} won! <<')
             player2Wins += 1
+        time.sleep(1)
             
     print (f'\nFinal Score {player1} wins {player1Wins} times, {player2} wins {player2Wins} times, and there were {ties} ties')
     
