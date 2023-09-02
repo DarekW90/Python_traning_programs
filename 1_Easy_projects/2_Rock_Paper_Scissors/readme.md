@@ -9,4 +9,6 @@ A simple rock paper scissors game
 
 > ###### added OOP styling
 > ###### added new mode 
-> ###### computer vs computer (in this moment in development)
+> ###### computer vs computer
+
+> ###### when I get better in python I want to add Threading version for faster counting

@@ -28,7 +28,7 @@ def main():
             print('\n' + result)
         elif choice == '2':
             result = play2()
-            print(result)
+            
     
         escape = input('\nContinue? Press Y to continue or N to exit: ').lower()
         while escape not in ('y','n'):
