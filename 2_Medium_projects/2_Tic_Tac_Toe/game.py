@@ -1,9 +1,10 @@
 from player import HumanPlayer, RandomComputerPlayer
+import time
 
 class TicTacToe:
     def __init__(self):
         self.board = [ ' ' for x in range(9)]
-        self.currentWinner = None ############################################################################
+        self.currentWinner = None 
         
     def printBoard(self):
         for row in [self.board[i*3:(i+1) * 3] for i in range(3)]:
@@ -60,7 +61,7 @@ class TicTacToe:
         if self.board[square] == ' ':
             self.board[square] = letter
             if self.winner(square,letter):
-                self.current_winner = letter
+                self.currentWinner = letter
             return True
         return False    
         
@@ -79,7 +80,7 @@ def play(game, x_player, o_player, printGame=True):
         if game.makeMove(square,letter):
             if printGame:
                 print(letter + f' makes a move to square {square}')
-                game.printBoard() ############################################################################
+                game.printBoard() 
                 print('')
                 
             if game.currentWinner:
@@ -93,8 +94,11 @@ def play(game, x_player, o_player, printGame=True):
             # else:
             #     letter = 'X'
         
-        if printGame:
-            print('It\'s a tie!')
+        # tiny break
+        time.sleep(0.75)
+    
+    if printGame:
+        print('It\'s a tie!')
             
             
 if __name__ == '__main__':
