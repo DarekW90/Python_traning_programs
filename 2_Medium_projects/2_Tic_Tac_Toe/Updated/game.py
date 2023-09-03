@@ -83,21 +83,28 @@ def menu():
 
     whoStart =  int(input('\nPlease choose who start(1/2/3): '))
     return whoStart
-    
-def play(game, x_player, o_player, printGame=True):
 
-    #modeSelect()
+def whoStart():
     whoStart = menu()
-    
-    if printGame:
-        game.printBoardNums()
-        
     if whoStart == 1:
         letter = 'O'
     elif whoStart == 2:
         letter = 'X'
     else:
         letter = random.choice(['X', 'O'])
+    
+    return letter
+
+def humanPvp():
+    input('Welcome to PvP mode, player one get ready and press ENTER:')
+    letter = 'O'
+    
+    return letter
+    
+    
+def play(game, x_player, o_player, letter, printGame=True):
+    if printGame:
+        game.printBoardNums()
 
     while game.emptySquares():
         if letter == 'X':
@@ -108,7 +115,7 @@ def play(game, x_player, o_player, printGame=True):
 
         if game.makeMove(square, letter):
             if printGame:
-                print(letter + f' makes a move to square {square}')
+                print('\n', letter + f' makes a move to square {square}\n')
                 game.printBoard()
                 print('')
 
@@ -135,9 +142,12 @@ if __name__ == '__main__':
     gameMode = modeSelect()
     if gameMode == 1:
         o_player = HumanPlayer('O')
+        letter = humanPvp()
     elif gameMode == 2:
         o_player = RandomComputerPlayer('O')
+        letter = whoStart()
     elif gameMode == 3:
         o_player = AiComputerPlayer('O')
+        letter = whoStart()
     t = TicTacToe()
-    play(t, x_player, o_player, printGame=True)
+    play(t, x_player, o_player, letter, printGame=True)
