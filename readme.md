@@ -7,7 +7,8 @@
 
 ## Medium projects
 
-> This folder has been created to keep good to know projects like simple AI models, basics of analytics and more difficult programs
+> This folder has been created to keep good to know projects like simple AI models, basics of analytics and more difficult programs 
+***
 > Also for practice work with Django, Flask, Pandas, Numpy, Pytorch etc
 
 
@@ -17,5 +18,6 @@
 
 ## Ultimate projects
 
->> emmm.... at this moment I have no idea what is this
+> emmm.... at this moment I have no idea what is this
+***
 > for sure some cool analitic scripts or perhaps some kind of AI projects
