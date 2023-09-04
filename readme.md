@@ -3,7 +3,7 @@
 ***
 
 ### 
-<center>About me and my plans.</center>
+<p align="center">About me and my plans.</p>
 
 Hi!
 My name is Darek and at this moment I have only one simple wish... <s>(dont waste time for everyday drive to work and back :) )</s> ... Ok...Ok...
