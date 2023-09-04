@@ -31,7 +31,7 @@ But I fell in love with Python.
 
 <b>And this is my first ever portfolio.</b>
 
->ps: thanks for coming here and reading this
+><p align="right">ps: thanks for coming here and reading this</p>
 
 ***
 
