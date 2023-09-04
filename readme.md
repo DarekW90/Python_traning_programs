@@ -1,9 +1,9 @@
-# This is my Python portfolio!
+# <p align="center">This is my Python portfolio!</p>
 
 ***
 
-### 
-<p align="center">About me and my plans.</p>
+### <p align="center">About me and my plans.</p>
+
 
 Hi!
 My name is Darek and at this moment I have only one simple wish... <s>(dont waste time for everyday drive to work and back :) )</s> ... Ok...Ok...
@@ -35,23 +35,23 @@ But I fell in love with Python.
 
 ***
 
-## Easy projects
+## <p align="center">Easy projects</p>
 
 > This folder contains only easy projects and ideas, mainly for testing features of Python with easy scripts
 
 
-## Medium projects
+## <p align="center">Medium projects</p>
 
 > This folder has been created to keep good to know projects like simple AI models, basics of analytics and more difficult programs 
 ***
 > Also for practice work with Django, Flask, Pandas, Numpy, Pytorch etc
 
 
-## Hard projects
+## <p align="center">Hard projects</p>
 
 > This folder is made to create my own programs, most of this scripts are made by myself only
 
-## Ultimate projects
+## <p align="center">Ultimate projects</p>
 
 > emmm.... at this moment I have no idea what is this
 ***
