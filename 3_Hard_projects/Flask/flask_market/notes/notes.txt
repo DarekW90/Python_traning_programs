@@ -1,10 +1,10 @@
-Notatki:
+    
 
-set FLASK_APP=(nazwa) // na czas deployu
-set FLASK_DEBUG=1     // do testowania w czasie rzeczywistym
 
-    @app.route('/about/<username>')
-    def about_page(username):
-        return f'<h1>This is about page of {username}</h1>'
-
-dla plików HTML używać folder TEMPLATES (S!), ponieważ jest on domyślnym dla FLASK
+def marketPage():
+    items = [
+        {'id': 1, 'name': 'Phone', 'barcode': '893212299897', 'price': 500},
+        {'id': 2, 'name': 'Laptop', 'barcode': '123985473165', 'price': 900},
+        {'id': 3, 'name': 'Keyboard', 'barcode': '231985128446', 'price': 150}
+    ]
+    return render_template('market.html',items=items)

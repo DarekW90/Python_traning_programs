@@ -1,0 +1,9 @@
+set FLASK_APP=(nazwa) // na czas deployu
+set FLASK_DEBUG=1     // do testowania w czasie rzeczywistym
+
+    @app.route('/about/<username>')
+    def about_page(username):
+        return f'<h1>This is about page of {username}</h1>'
+
+dla plików HTML używać folder TEMPLATES (S!), ponieważ jest on domyślnym dla FLASK
+
