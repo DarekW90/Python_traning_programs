@@ -8,7 +8,6 @@
 _Nauczę się:_
 
 >1.Jak zacząć pracę z Django, tworzyć projekty i aplikacje oraz jak korzystać z jego wbudowanych funkcji, takich jak administracja, autoryzacja, itp.
-
 >2.Modele i bazy danych: Omówię, jak tworzyć modele danych w Django i korzystać z ORM (Object-Relational Mapping) do interakcji z bazą danych.
 3.Widoki i szablony: Nauczę Cię, jak tworzyć widoki i używać szablonów w Django do renderowania stron internetowych.
 4.Formularze: Wyjaśnię, jak tworzyć formularze w Django i obsługiwać przesyłane dane.
