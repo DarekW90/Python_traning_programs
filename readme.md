@@ -5,7 +5,7 @@
 ### <p align="center">About me and my plans.</p>
 
 
-Hi!
+Hi!<br>
 My name is Darek and at this moment I have only one simple wish... <s>(dont waste time for everyday drive to work and back :) )</s> ... Ok...Ok...
 Honestly, I don't see any problem with getting to the office :)
 I just dont want to work with my bare hands anymore. I'm just tired, so from this came out my motivation to become a developer.
