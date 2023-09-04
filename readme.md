@@ -6,12 +6,12 @@
 
 
 Hi!<br>
-My name is Darek and at this moment I have only one simple wish... <s>(dont waste time for everyday drive to work and back :) )</s> ... Ok...Ok...
-Honestly, I don't see any problem with getting to the office :)
-I just dont want to work with my bare hands anymore. I'm just tired, so from this came out my motivation to become a developer.
+My name is Darek and at this moment I have only one simple wish... <s>(dont waste time for everyday drive to work and back :) )</s> ... Ok...Ok...<br>
+Honestly, I don't see any problem with getting to the office :)<br>
+I just dont want to work with my bare hands anymore. I'm just tired, so from this came out my motivation to become a developer.<br>
 
-I've started to learn over 1 year ago, and now when I quit my job at the end of August, I want to spend lots more time on learning and practicing my skills.
-Also I'm a second-year computer science student with a programmer specialty.
+I've started to learn over 1 year ago, and now when I quit my job at the end of August, I want to spend lots more time on learning and practicing my skills.<br>
+Also I'm a second-year computer science student with a programmer specialty.<br>
 
 My stack isn't very big at the moment, but give me some time... I promise that my stubborn nature and my hard work will do some good soon.
 At the moment I have beginner knowledge about: 
