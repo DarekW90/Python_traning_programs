@@ -1,0 +1,77 @@
+pip install flask_sqlalchemy
+***
+IMPORT do programu: from flask_sqlalchemy import SQLAlchemy
+
+Utworzenie zmiennej:
+db = SQLAlchemy()
+
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+from flask_sqlalchemy import SQLAlchemy
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///market.db'
+        # URI - Uniform Resource Identifier
+db = SQLAlchemy(app)
+
+class Item(db.Model):
+    id = db.Column(db.Integer(), primary_key=True)
+        # primary_key=True      wymusza informacje o pierwszeństwie
+    name = db.Column(db.String(length=30), nullable=False,unique=True) 
+        # db.String(length=30)  uniemożliwia utworzenie przedmiotu o nazwie dłuższej niz 30 znaków
+        # nullable=False        nie może być puste
+        # unique=True           nazwa musi być unikatowa
+    price = db.Column(db.Integer(), nullable=False,)
+        # db.Integer()          wartość liczbowa
+    barcode = db.Column(db.String(length=12), nullable=False, unique=True)
+    discription = db.Column(db.String(length=1024), nullable=False, unique=True)
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+otwarcie w folderze roboczym Python Shell
+
+python
+from market import app,db
+app.app_context().push() # wymuszenie jeśli nie chce współpracować
+db.create_all()
+item1 = Item(name="IPhone10",price=500,barcode='876876876876', description='desc') # przykładowy item
+db.session.add(item1)
+db.session.commit()
+
+Item.query.all() # by sprawdzić czy poprawnie zapisało
+
+
+Do wyczyszczenia Python Shell:
+
+    import os
+    os.system('cls')
+
+Printowanie zawartości bazy danych w Python Shell:
+
+    >>> for item in Item.query.all():
+    ...     item.name
+    ...     item.price
+    ...     item.description
+    ...     item.id
+    ...     item.barcode
+
+
+Filtrowanie zawartości bazy wg wymagań w Python Shell:
+
+Item.query.filter_by(price=500)
+<flask_sqlalchemy.query.Query object at 0x000002029C8FDED0> # ten zapis występuje ponieważ może być więcej niż jeden przedmiot filtrowany wg. wymogów
+    >>> for item in Item.query.filter_by(price=500):
+    ...     item.name
+    ...
+
+
+
+
+@app.route('/market')
+def marketPage():
+    items = Item.query.all()  # zmiana w głównym pliku
+    return render_template('market.html',items=items)
+
+
+JEŚLI BYŁY PROBLEMY Z DB:
+
+    set FLASK_APP = market.py
+    set FLASK_DEBUG = 1
+    flask --app market.py:app run
