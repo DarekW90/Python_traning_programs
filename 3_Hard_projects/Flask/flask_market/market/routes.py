@@ -20,7 +20,7 @@ def registerPage():
     if form.validate_on_submit():
         userToCreate = User(username=form.username.data,
                             emailAddress = form.emailAddress.data,
-                            password_hash=form.password1.data)
+                            password=form.password1.data)
         db.session.add(userToCreate)
         db.session.commit()
         return redirect(url_for('marketPage'))
