@@ -75,3 +75,41 @@ JEŚLI BYŁY PROBLEMY Z DB:
     set FLASK_APP = market.py
     set FLASK_DEBUG = 1
     flask --app market.py:app run
+
+*********************************************************************************************************
+
+>>> i1= Item(name='IPhone 10', description='description', barcode='123456123456', price=800)
+>>> db.session.add(i1)
+>>> db.session.commit()
+>>> i2= Item(name='Laptop', description='description2', barcode='456456456456', price=1000)
+>>> db.session.add(i2)
+>>> db.session.commit()
+>>> Item.query.all()
+[ItemIPhone 10, ItemLaptop]
+>>> item1 = Item.query.filter_by(name='IPhone 10')
+>>> item1
+<flask_sqlalchemy.query.Query object at 0x000001DC3E196C10>
+>>> item1 = Item.query.filter_by(name='IPhone 10').first()
+>>> item1
+ItemIPhone 10
+
+*********************************************************************************************************
+
+>>> item1.owner = User.query.filter_by(username='jsc').first().id
+>>> db.session.add(item1)
+>>> db.session.commit()
+>>> item1.owner
+1
+
+*********************************************************************************************************
+
+>>> i = Item.query.filter_by(name='IPhone 10')
+>>> i.owned_user
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'Query' object has no attribute 'owned_user'
+>>> i = Item.query.filter_by(name='IPhone 10').first()
+>>> i.owned_user
+<User 1>
+
+*********************************************************************************************************
