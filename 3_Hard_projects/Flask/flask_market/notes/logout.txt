@@ -21,3 +21,16 @@
           {% endif %}
 
 ***********************************************************************************************
+
+// routes.py
+
+from flask_login import logout_user
+
+@app.route('/logout')
+def logoutPage():
+    logout_user()
+    flash('You have been logged out!', category='info')
+    return redirect(url_for('homePage'))
+
+***********************************************************************************************
+
