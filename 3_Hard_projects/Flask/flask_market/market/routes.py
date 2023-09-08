@@ -1,8 +1,9 @@
 from market import app
 from flask import render_template, redirect, url_for, flash
 from market.models import Item, User
-from market.forms import RegisterForm
+from market.forms import RegisterForm, LoginForm
 from market import db
+from flask_login import login_user
 
 @app.route('/')
 @app.route('/home')
@@ -28,3 +29,18 @@ def registerPage():
         for err_msg in form.errors.values():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
     return render_template('register.html',form=form)
+
+@app.route('/login', methods=['GET','POST'])
+def loginPage():
+    form = LoginForm()
+    if form.validate_on_submit():
+        attemptedUser = User.query.filter_by(username=form.username.data).first()
+        if attemptedUser and attemptedUser.check_password_correction(attempted_password=form.password.data):
+            login_user(attemptedUser)
+            flash(f'Success! You are logged in as: {attemptedUser.username}', category='success')
+            return redirect(url_for('marketPage'))
+        else:
+            flash('Username and password are not match! Please try again', category='danger')
+            
+    return render_template('login.html', form=form)
+

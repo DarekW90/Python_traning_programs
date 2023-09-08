@@ -1,0 +1,83 @@
+// login.html
+
+***********************************************************************
+
+// routes.py 
+
+@app.route('/login', methods=['GET','POST'])
+def loginPage():
+    form = LoginForm()
+    return render_template('login.html', form=form)
+
+***********************************************************************
+
+// Command Prompt
+
+pip install flask_login
+
+***********************************************************************
+
+// __init__.py
+
+from flask_login import LoginManager
+
+***********************************************************************
+
+// models.py
+
+@password.setter
+    def password(self,plain_text_password):
+        self.password_hash = bcrypt.generate_password_hash(plain_text_password).decode('utf-8')
+        
+    def checkPasswordCorrection(self,attepmtedPassword):
+        if bcrypt.check_password_hash(self.password_hash, attepmtedPassword):
+            return True
+
+***********************************************************************
+
+// routes.py
+
+from flask_login import login_user
+
+@app.route('/login', methods=['GET','POST'])
+def loginPage():
+    form = LoginForm()
+    form = LoginForm()
+    if form.validate_on_submit():
+        attemptedUser = User.query.get(form.username.data).first()
+        if attemptedUser and attemptedUser.check_password.correction(attemptedPassword=form.password.data):
+            login_user(attemptedUser)
+            flash(f'Success! You are logged in as: {attemptedUser.username}', category='success')
+            return redirect(url_for('marketPage'))
+        else:
+            flash('Username and password are not match! Please try again', category='danger')
+            
+    return render_template('login.html', form=form)
+
+***********************************************************************
+
+// models.py
+
+from market import db, login_manager
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+***********************************************************************
+
+from flask_login import UserMixin
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
+class User(db.Model, UserMixin):
+    id = db.Column(db.Integer(), primary_key=True)
+    username = db.Column(db.String(length=30),nullable=False, unique=True)
+    emailAddress = db.Column(db.String(length=50), nullable = False, unique = True)
+    password_hash = db.Column(db.String(length=60), nullable = False)
+    budget = db.Column(db.Integer(), nullable=False, default=1000)
+    items = db.relationship('Item', backref='owned_user', lazy=True)
+
+***********************************************************************
