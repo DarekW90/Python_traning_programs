@@ -1,0 +1,73 @@
+// modal window
+
+// templates/includes/items_modal.html
+
+*********************************************************
+Script for modal window 
+*********************************************************
+
+<!-- More Info -->
+  <div class="modal fade" id="Modal-MoreInfo"
+       tabindex="-1"
+       aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="ModalLabel">
+            <!-- -->
+            Here goes the title
+          </h5>
+          <button type="button" class="close"
+                  data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">x</span>
+          </button>
+        </div>
+        <div class="modal-body">
+           <!-- Here goes the text/paragraph -->
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"
+                  data-dismiss="modal">Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+*********************************************************
+
+// market.html
+
+Remember about #
+
+data-toggle="modal" data-target="#Modal-MoreInfo-{{ item.id }}">More Info</button>
+                                ^^^^^^^
+
+...
+<tbody>
+    <!-- Your rows inside the table HERE: -->
+    {% for item in items %}
+    {% include 'includes/items_modals.html' %} *********
+        <tr>
+            <td>{{ item.id }}</td>
+...
+
+*********************************************************
+
+// items_modal.html
+
+id="Modal-MoreInfo-{{ item.id }}"
+
+...
+{{ item.name }} ***************************************
+
+</h5>
+<button type="button" class="close"
+        data-dismiss="modal" aria-label="Close">
+<span aria-hidden="true">x</span>
+</button>
+</div>
+<div class="modal-body">
+
+{{ item.description }} ********************************
+...
