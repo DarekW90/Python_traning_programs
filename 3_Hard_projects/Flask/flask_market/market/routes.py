@@ -1,7 +1,7 @@
 from market import app
 from flask import render_template, redirect, url_for, flash, request
 from market.models import Item, User
-from market.forms import RegisterForm, LoginForm, PurchaseItemForm
+from market.forms import RegisterForm, LoginForm, PurchaseItemForm, SellItemForm
 from market import db
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -14,6 +14,7 @@ def homePage():
 @login_required
 def marketPage():
     purchase_form = PurchaseItemForm()
+    selling_form = SellItemForm()
     if purchase_form.validate_on_submit():
         if request.method == 'POST':
             purchased_item = request.form.get('purchased_item')
@@ -29,7 +30,8 @@ def marketPage():
                 
     if request.method == "GET":
         items = Item.query.filter_by(owner = None)
-    return render_template('market.html',items=items, purchase_form=purchase_form)
+        owned_items = Item.query.filter_by(owner=current_user.id)
+    return render_template('market.html',items=items, purchase_form=purchase_form, owned_items=owned_items, selling_form = selling_form)
 
 @app.route('/register', methods=['GET','POST'])
 def registerPage():
