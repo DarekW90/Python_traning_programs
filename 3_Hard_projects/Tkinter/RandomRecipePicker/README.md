@@ -1,4 +1,4 @@
-### <p align="center" >Tkinter Tutorial from Python Simplified</p>
+### <p align="center" >Tkinter tutorial from Python Simplified</p>
 
 ***
 
