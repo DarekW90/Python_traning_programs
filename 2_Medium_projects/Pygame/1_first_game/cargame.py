@@ -1,5 +1,7 @@
 import os, random, pygame
 from pygame.locals import *
+import tkinter as tk
+from tkinter import messagebox
 
 current_dir = os.path.dirname(__file__)
 
@@ -9,6 +11,17 @@ roadmark_w = int(width/80)
 right_lane = width/2 + road_w/4
 left_lane = width/2 - road_w/4
 speed = 1
+
+root = tk.Tk()
+root.withdraw()
+
+def on_yes():
+    print("Wybrano opcję 'Tak'")
+    root.quit()
+
+def on_no():
+    print("Wybrano opcję 'Nie'")
+    root.quit()
 
 pygame.init()
 
@@ -60,8 +73,14 @@ while running:
     # end game
     if car_loc[0] == car2_loc[0] and car2_loc[1] > car_loc[1] -250 :
         print('GAME OVER! YOU LOST!')
-        break
-        
+        speed = 0
+        messagebox.showinfo("Game Over","You crashed the car!")
+        response = messagebox.askquestion("Choice", "Do you like to continue?", icon='question')
+
+        if response == 'yes':
+            on_yes()
+        else:
+            on_no()
     
     for event in pygame.event.get():
         if event.type == QUIT:
