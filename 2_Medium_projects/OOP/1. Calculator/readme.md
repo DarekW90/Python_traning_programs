@@ -5,17 +5,11 @@ Object składa się z atrybutów oraz metod:
 -> metodą jest Funkcjonalność
 
 >   class Fruit:<br>
->       <p>def __init__(self):</p><br>
->           <<p></p>>self.name = 'apple'</<p></p>><br>
->           <p><p>self.colour = 'red'</p></p><br>
+>       <t>def __init__(self):</t>
+>           <t>>self.name = 'apple'</t>
+>           <t>self.colour = 'red'</t>
 >   
 >   my_fruit = Fruit()<br>
 >   print(my_fruit.colour)<br>
 
 
-```seq
-Andrew->China: Says Hello 
-Note right of China: China thinks\nabout it 
-China-->Andrew: How are you? 
-Andrew->>China: I am good thanks!
-```
