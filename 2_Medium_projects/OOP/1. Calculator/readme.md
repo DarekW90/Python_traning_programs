@@ -11,3 +11,11 @@ Object składa się z atrybutów oraz metod:
 >   
 >   my_fruit = Fruit()<br>
 >   print(my_fruit.colour)<br>
+
+
+```seq
+Andrew->China: Says Hello 
+Note right of China: China thinks\nabout it 
+China-->Andrew: How are you? 
+Andrew->>China: I am good thanks!
+```
