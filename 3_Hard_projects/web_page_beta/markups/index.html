@@ -66,12 +66,18 @@
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		      	<ul class="nav navbar-nav mu-menu navbar-right">
-			        <li><a href="#">HOME</a></li>
-			        <li><a href="#mu-about">ABOUT ME</a></li>
-			        <li><a href="#mu-service">PROGRESS</a></li>
-		            <li><a href="#mu-portfolio">PORTFOLIO</a></li>
-		            <li><a href="#mu-tutorials">TUTORIALS</a></li>
-		            <li><a href="#mu-contact">CONTACT</a></li>
+					<label for="language-select">Wybierz język:</label>
+					<select id="language-select" onchange="changeLanguage()">
+						<option value="en">English</option>
+						<option value="pl">Polski</option>
+					</select>
+					
+			        <li><a href="#" id="menu-home">HOME</a></li>
+			        <li><a href="#mu-about" id="menu-about">ABOUT ME</a></li>
+			        <li><a href="#mu-service" id="menu-progress">PROGRESS</a></li>
+		            <li><a href="#mu-portfolio" id="menu-portfolio">PORTFOLIO</a></li>
+		            <li><a href="#mu-tutorials" id="menu-tutorials">TUTORIALS</a></li>
+		            <li><a href="#mu-contact" id="menu-contact">CONTACT</a></li>
 		      	</ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
@@ -101,12 +107,12 @@
 							</div>
 							<span id="typed"></span>
 						</div>
+
 						<!-- Start text slide -->
-						
 						<div class="mu-featured-content">
-							<p>As a person freshly entering the world of programming and development, I am at the stage of acquiring as much knowledge as possible.<br><br>
+							<p id="start">As a person freshly entering the world of programming and development, I am at the stage of acquiring as much knowledge as possible.<br><br>
 								Every day I learn something new to expand my knowledge.</p>
-							<a href="#mu-portfolio" class="mu-primary-btn view-my-work-btn">CHECK MY WORK</a>
+							<a href="#mu-portfolio" class="mu-primary-btn view-my-work-btn" id="view-my-work-btn">CHECK MY WORK</a>
 						</div>
 
 					</div>

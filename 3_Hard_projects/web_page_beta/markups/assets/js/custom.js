@@ -16,6 +16,9 @@
 	7. PORTFOLIO POPUP VIEW ( IMAGE LIGHTBOX )
 	8. CLIENT TUTORIALS ( SLICK SLIDER )
 	9. BUTTON SMOOTH SCROLL ( VIEW MY WORK )
+	10. RANDOM COLOR THEME
+	11. POPUP
+	12. LANGAUGE SELECTION
 	
 **/
 
@@ -280,6 +283,74 @@
             });
         });
 
+		/* ----------------------------------------------------------- */
+		/*  12. Language selection
+		/* ----------------------------------------------------------- */
+		
+		$(document).ready(function() {
+            $('#language-select').change(function() {
+                var selectedValue = $(this).val();
+
+                var menuHome = $('#menu-home');
+                if (selectedValue === 'en') {
+                    menuHome.html('HOME')
+					;
+                } else {
+                    menuHome.html('DO GÓRY');
+                }
+
+                var menuAbout = $('#menu-about');
+                if (selectedValue === 'en') {
+                    menuAbout.html('ABOUT ME')
+					;
+                } else {
+                    menuAbout.html('O MNIE');
+                }
+
+                var menuProgress = $('#menu-progress');
+                if (selectedValue === 'en') {
+                    menuProgress.html('PROGRESS')
+					;
+                } else {
+                    menuProgress.html('POSTĘPY');
+                }
+
+                var menuTutorials = $('#menu-tutorials');
+                if (selectedValue === 'en') {
+                    menuTutorials.html('TUTORIALS')
+					;
+                } else {
+                    menuTutorials.html('PORADNIKI');
+                }
+
+                var menuContact = $('#menu-contact');
+                if (selectedValue === 'en') {
+                    menuContact.html('CONTACT')
+					;
+                } else {
+                    menuContact.html('KONTAKT');
+                }
+
+                var greeting = $('#start');
+                if (selectedValue === 'en') {
+                    greeting.html('As a person freshly entering the world of programming and development, I am at the stage of acquiring as much knowledge as possible.<br><br>Every day I learn something new to expand my knowledge.')
+					;
+                } else {
+                    greeting.html('Jako osoba świeżo wkraczająca w świat programowania i rozwoju jestem na etapie zdobywania jak największej wiedzy.<br><br>Każdego dnia uczę się czegoś nowego, poszerzając swoją wiedzę.');
+                }
+				
+                var viewMyWorkBtn = $('#view-my-work-btn');
+                if (selectedValue === 'en') {
+                    viewMyWorkBtn.html('CHECK MY WORK')
+					;
+                } else {
+                    viewMyWorkBtn.html('ZOBACZ MOJE PRACE');
+                }
+
+            });
+        });
+
+		
 		
 
 	
