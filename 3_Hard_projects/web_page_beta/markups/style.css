@@ -1122,6 +1122,15 @@ button:focus {
     color: white;
 }
 
+/*------------------------*/
+/* LANGUAGE CHANGE BUTTON */
+/*------------------------*/
+
+.lang-button {
+	margin-left: 20vw; 
+	margin-top: 10px;
+}
+
 
 /*--------------------*/
 /* RESPONSIVE STYLE */

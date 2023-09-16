@@ -55,29 +55,34 @@
 		      </button>
 
 		      <!-- Text Logo -->
-		      <a class="navbar-brand" href="#">Darek</a> 
+		      <a class="navbar-brand" href="#">Darek</a>
+			
+			    <div class="lang-button">
+					<select id="language-select" onchange="changeLanguage()">
+						<option value="en">English</option>
+						<option value="pl">Polski</option>
+					</select> 
+				</div>
+			  
 
 		      <!-- Image Logo 
 		      <a class="navbar-brand" href="#"><img src="assets/images/logo.png"></a>-->
 
 
 		    </div>
-
+			
 		    <!-- Collect the nav links, forms, and other content for toggling -->
 		    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+				
 		      	<ul class="nav navbar-nav mu-menu navbar-right">
-					<label for="language-select">Wybierz język:</label>
-					<select id="language-select" onchange="changeLanguage()">
-						<option value="en">English</option>
-						<option value="pl">Polski</option>
-					</select>
-					
 			        <li><a href="#" id="menu-home">HOME</a></li>
 			        <li><a href="#mu-about" id="menu-about">ABOUT ME</a></li>
 			        <li><a href="#mu-service" id="menu-progress">PROGRESS</a></li>
 		            <li><a href="#mu-portfolio" id="menu-portfolio">PORTFOLIO</a></li>
 		            <li><a href="#mu-tutorials" id="menu-tutorials">TUTORIALS</a></li>
 		            <li><a href="#mu-contact" id="menu-contact">CONTACT</a></li>
+		            <li>
+					</li>
 		      	</ul>
 		    </div><!-- /.navbar-collapse -->
 		  </div><!-- /.container-fluid -->
