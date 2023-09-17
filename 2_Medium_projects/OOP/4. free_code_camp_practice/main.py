@@ -1,3 +1,7 @@
+import csv
+import os
+
+
 class Item:
     # class atribute
     pay_rate = 0.8  # The pay rate after 20% discount
@@ -12,7 +16,7 @@ class Item:
         self.name = name
         self.price = price
         self.quantity = quantity
-        
+
         # Actions to execute
         Item.all.append(self)
 
@@ -22,18 +26,44 @@ class Item:
     def apply_discount(self):
         self.price = self.price * self.pay_rate
 
-    #__repr__ -> represent your object
+    @classmethod
+    def instantiate_from_csv(cls):
+        # Pobierz pełną ścieżkę do aktualnego pliku
+        current_file_path = os.path.abspath(__file__)
+        current_directory = os.path.dirname(current_file_path)
+        # Połączenie z nazwą pliku
+        file_path = os.path.join(current_directory, 'items.csv')
+
+        with open(file_path, 'r') as f:
+            reader = csv.DictReader(f)
+            items = list(reader)
+
+        # for item in items:
+        #     print(item)
+
+        for item in items:
+            Item(
+                name=item.get('name'),
+                price=float(item.get('price')),
+                quantity=int(item.get('quantity')),
+            )
+
+    @staticmethod
+    def is_integer(num):
+        # We will count out the floats that are point zero
+        # For i.e: 5.0, 10.0
+        if isinstance(num, float):
+            # count out the floats that are point zero
+            return num.is_integer()
+        elif isinstance(num, int):
+            return True
+        else:
+            return False
+
+    # __repr__ -> represent your object
+
     def __repr__(self):
         return f'Item("{self.name}", {self.price}, {self.quantity})'
-    
-item1 = Item('Phone', 100, 1)
-item2 = Item('Laptop', 1000, 3)
-item3 = Item('Cable', 10, 5)
-item4 = Item('Mouse', 50, 5)
-item5 = Item('Keyboard', 75, 5)
 
-print(Item.all)
 
-# for instance in Item.all:
-#     print(instance.name)
-
+print(Item.is_integer(7.0))
