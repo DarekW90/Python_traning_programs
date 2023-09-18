@@ -3,18 +3,29 @@ from PIL import ImageTk
 import sqlite3
 from numpy import random
 import pyglet
+import os
+
 
 bg_color = "#3d6466"
+current_file_path = os.path.abspath(__file__)
+current_directory = os.path.dirname(current_file_path)
 
-pyglet.font.add_file("fonts/Ubuntu-Bold.ttf")
-pyglet.font.add_file("fonts/Shanti-Regular.ttf")
+# Połączenie z nazwą pliku
+ubuntu_font = os.path.join(current_directory, 'fonts/Ubuntu-Bold.ttf')
+shanti_font = os.path.join(current_directory, 'fonts/Shanti-Regular.ttf')
+database = os.path.join(current_directory, 'data/recipes.db')
+img_photo = os.path.join(current_directory, "assets/RRecipe_logo.png")
+logo_photo = os.path.join(current_directory, "assets/RRecipe_logo_bottom.png")
+
+pyglet.font.add_file(ubuntu_font)
+pyglet.font.add_file(shanti_font)
 
 def clear_widget(frame):
     for widget in frame.winfo_children():
         widget.destroy()
     
 def fetch_db():
-    connection= sqlite3.connect("data/recipes.db")
+    connection= sqlite3.connect(database)
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM sqlite_schema WHERE type='table';")
     all_tables = cursor.fetchall()
@@ -53,7 +64,7 @@ def load_frame1():
     
     # frame1 widgets
 
-    logo_img = ImageTk.PhotoImage(file="assets/RRecipe_logo.png")
+    logo_img = ImageTk.PhotoImage(file=img_photo)
     logo_widget = tk.Label(frame1, image=logo_img, bg=bg_color)
     logo_widget.image = logo_img
     logo_widget.pack()
@@ -85,7 +96,7 @@ def load_frame2():
     table_name, table_records = fetch_db()
     title, ingredients = pre_process(table_name, table_records)
     
-    logo_img = ImageTk.PhotoImage(file="assets/RRecipe_logo_bottom.png")
+    logo_img = ImageTk.PhotoImage(file=logo_photo)
     logo_widget = tk.Label(frame2, image=logo_img, bg=bg_color)
     logo_widget.image = logo_img
     logo_widget.pack(pady=20)
