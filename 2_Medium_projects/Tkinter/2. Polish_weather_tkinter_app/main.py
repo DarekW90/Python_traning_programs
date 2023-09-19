@@ -9,9 +9,6 @@ bg_color = 'lightblue'
 
 root = tk.Tk()
 
-current_file_path = os.path.abspath(__file__)
-current_directory = os.path.dirname(current_file_path)
-
 root.title("Polish Weather")
 root.geometry("400x350")
 root.configure(bg=bg_color)
