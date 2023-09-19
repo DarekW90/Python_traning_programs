@@ -2,7 +2,7 @@ import tkinter as tk
 from tkinter import *
 import requests
 import os
-from tkinter import ttk, PhotoImage
+from tkinter import ttk
 
 
 bg_color = 'lightblue'
@@ -11,9 +11,6 @@ root = tk.Tk()
 
 current_file_path = os.path.abspath(__file__)
 current_directory = os.path.dirname(current_file_path)
-label_image = PhotoImage(file=os.path.join(
-    current_directory, 'assets/fog.png'))
-
 
 root.title("Polish Weather")
 root.geometry("400x350")
