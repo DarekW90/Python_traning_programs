@@ -54,7 +54,7 @@ class GameScraper:
         data_directory = os.path.join(current_directory, 'data')
         os.makedirs(data_directory, exist_ok=True)
 
-        csv_path = os.path.join(data_directory, 'dane.csv')
+        csv_path = os.path.join(data_directory, 'playstation_data.csv')
 
         df.to_csv(csv_path, index=False, sep=';', encoding='utf-8-sig')
 
