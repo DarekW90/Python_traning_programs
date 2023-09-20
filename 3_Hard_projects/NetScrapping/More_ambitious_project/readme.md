@@ -24,7 +24,6 @@ Tutaj zaczynamy definiować klasę GameScraper, która będzie zawierała wszyst
 >    def __init__(self):<br>
 >        self.data = {'Game': [], 'Status': [], 'Price': []}<br>
 >        self.page = 1<br>
->        self.last_index = 0<br>
 >        self.start_time = time.time()<br>
 >        self.browser = mechanicalsoup.StatefulBrowser()<br>
 
@@ -32,7 +31,6 @@ Tutaj zaczynamy definiować klasę GameScraper, która będzie zawierała wszyst
 W tym przypadku, przy inicjalizacji obiektu, zostaną wykonane następujące czynności:<br>
 Stworzenie pustego słownika data, który będzie przechowywał informacje o grach.<br>
 Ustawienie page na 1 - oznacza to, że zaczynamy od pierwszej strony.<br>
-Inicjalizacja last_index na 0 - wskazuje na ostatni indeks przetworzonej gry (aktualnie nieużywane).<br>
 Zapisanie bieżącego czasu jako start_time.<br>
 Stworzenie obiektu przeglądarki (browser) z biblioteki MechanicalSoup.<br>
 
@@ -40,7 +38,7 @@ Stworzenie obiektu przeglądarki (browser) z biblioteki MechanicalSoup.<br>
 <h1>Krok 4: Metoda scrape_page</h1>
 
 >    def scrape_page(self):
->        url = f'https://www.ultima.pl/ct/playstation-4/gry/?page={self.page}'
+>        url = f`https://www.ultima.pl/ct/playstation-4/gry/?page={self.page}`
 >        self.browser.open(url)
 >
 >        products = self.browser.page.find_all('div', attrs={'class': 'product-title'})

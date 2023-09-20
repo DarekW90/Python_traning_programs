@@ -7,7 +7,6 @@ class GameScraper:
     def __init__(self):
         self.data = {'Game': [], 'Status': [], 'Price': []}
         self.page = 1
-        self.last_index = 0
         self.start_time = time.time()
         self.browser = mechanicalsoup.StatefulBrowser()
 
