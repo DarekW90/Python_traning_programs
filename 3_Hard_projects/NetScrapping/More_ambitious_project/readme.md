@@ -2,16 +2,16 @@
 
 <h1>Krok 1: Importowanie Bibliotek</h1>
 
->    import mechanicalsoup
->    import os
->    import time
+>    import mechanicalsoup<br>
+>    import os<br>
+>    import time<br>
 >    import pandas as pd
 
-W tym kroku importujemy niezbędne biblioteki i moduły:
-<b>mechanicalsoup:</b> Umożliwia przeszukiwanie i manipulację stronami internetowymi.
-<b>os:</b> Dostarcza funkcje do operacji na systemie plików.
-<b>time:</b> Umożliwia pracę z czasem.
-<b>pandas:</b> Biblioteka do analizy danych, szczególnie do manipulacji danymi w postaci tabeli (DataFrame).
+W tym kroku importujemy niezbędne biblioteki i moduły:<br>
+<b>mechanicalsoup:</b> Umożliwia przeszukiwanie i manipulację stronami internetowymi.<br>
+<b>os:</b> Dostarcza funkcje do operacji na systemie plików.<br>
+<b>time:</b> Umożliwia pracę z czasem.<br>
+<b>pandas:</b> Biblioteka do analizy danych, szczególnie do manipulacji danymi w postaci tabeli (DataFrame).<br>
 
 <h1>Krok 2: Tworzenie Klasy GameScraper</h1>
 
@@ -103,9 +103,9 @@ Następnie zostanie utworzony katalog "data" i zapisany zostanie plik CSV z dany
 
 <h1>Krok 6: Uruchomienie Programu</h1>
 
->   if __name__ == '__main__':
->    scraper = UltimaScraper()
->    scraper.run()
+>   if __name__ == '__main__':<br>
+>    scraper = UltimaScraper()<br>
+>    scraper.run()<br>
 
 W tym kroku, sprawdzamy czy skrypt został uruchomiony jako główny program, a nie jako moduł importowany.
 Jeśli tak, tworzymy obiekt klasy GameScraper o nazwie scraper i uruchamiamy metodę run.
