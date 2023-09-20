@@ -1,30 +1,66 @@
-# https://www.mediaexpert.pl/smartfony-i-zegarki/smartfony?page=1
 import mechanicalsoup
 import os
+import time
 import pandas as pd
 
+class GameScraper:
+    def __init__(self):
+        self.data = {'Game': [], 'Status': [], 'Price': []}
+        self.page = 1
+        self.last_index = 0
+        self.start_time = time.time()
+        self.browser = mechanicalsoup.StatefulBrowser()
 
-page = 0
-data = {'Model': [], 'Price': []}
+    def scrape_page(self):
+        url = f'https://www.ultima.pl/ct/playstation-4/gry/?page={self.page}'
+        self.browser.open(url)
 
-while page < 5:
-    url = f'https://www.amazon.pl/s?i=electronics&bbn=20657432031&rh=n%3A26955202031&fs=true&page={page}&qid=1695143308&ref=sr_pg_6'
-    browser = mechanicalsoup.StatefulBrowser()
-    browser.open(url)
+        products = self.browser.page.find_all('div', attrs={'class': 'product-title'})
+        products_status = self.browser.page.find_all('div', attrs={'class': 'product-status-text'})
+        prices = self.browser.page.find_all('div', attrs={'class': 'product-price'})
 
-    # extract titles
-    models = browser.page.find_all(
-        'span', attrs={'class': 'a-size-base-plus a-color-base a-text-normal'})
-    prices = browser.page.find_all('span', attrs={'class': 'a-offscreen'})
+        for product in products[3:]:
+            product_name = product.text.strip()
+            self.data['Game'].append(product_name)
 
-    for model, price in zip(models, prices):
-        # model_text = model.text
-        # price_text = price.text
-        data['Model'].append(model.text)
-        data['Price'].append(price.text)
+        for status in products_status:
+            status_text = status.text.strip()
+            self.data['Status'].append(status_text)
 
-    page += 1
-    print(f"Current page: {page}")
+        for price in prices[10:]:
+            price_text = price.text.strip()
+            if len(price_text) > 0:
+                price_edited = price_text[:-4] + '.' + price_text[-4:]
+                self.data['Price'].append(price_edited)
+            else:
+                self.data['Price'].append('NoData')
 
-df = pd.DataFrame(data)
-print(df)
+        self.last_index += 1
+        self.page += 1
+
+    def run(self):
+        while self.page < 2:  # Change this condition if needed
+            print(f'Sprawdzam strone nr: {self.page}')
+            self.scrape_page()
+
+        self.stop_time = time.time()
+        self.run_time = self.stop_time - self.start_time
+        self.formatted_run = time.strftime("%H:%M:%S", time.gmtime(self.run_time))
+
+        df = pd.DataFrame(self.data)
+
+        current_file_path = os.path.abspath(__file__)
+        current_directory = os.path.dirname(current_file_path)
+        data_directory = os.path.join(current_directory, 'data')
+        os.makedirs(data_directory, exist_ok=True)
+
+        csv_path = os.path.join(data_directory, 'dane.csv')
+
+        df.to_csv(csv_path, index=False, sep=';', encoding='utf-8-sig')
+
+        print(f'Program run time: {self.formatted_run}')
+
+
+if __name__ == '__main__':
+    scraper = GameScraper()
+    scraper.run()
