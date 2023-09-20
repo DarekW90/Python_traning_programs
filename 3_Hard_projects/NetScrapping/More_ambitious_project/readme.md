@@ -38,7 +38,7 @@ Stworzenie obiektu przeglądarki (browser) z biblioteki MechanicalSoup.<br>
 <h1>Krok 4: Metoda scrape_page</h1>
 
 >    def scrape_page(self):
->        url = f`https://www.ultima.pl/ct/playstation-4/gry/?page={self.page}`<br>
+>        url = f'https://www.ultima.pl/ct/playstation-4/gry/?page={self.page}'<br>
 >        self.browser.open(url)
 >
 >        products = self.browser.page.find_all('div', attrs={'class': 'product-title'})
