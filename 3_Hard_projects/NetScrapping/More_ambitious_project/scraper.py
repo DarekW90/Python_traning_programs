@@ -34,12 +34,11 @@ class GameScraper:
             else:
                 self.data['Price'].append('NoData')
 
-        self.last_index += 1
         self.page += 1
 
     def run(self):
-        while self.page < 2:  # Change this condition if needed
-            print(f'Sprawdzam strone nr: {self.page}')
+        while self.page < 103:  # Change this condition if needed
+            print(f'Page number: {self.page}')
             self.scrape_page()
 
         self.stop_time = time.time()
