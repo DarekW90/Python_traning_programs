@@ -1,6 +1,8 @@
-## This is scraper for collecting data of PS4 game price from ultima.pl
+# This is scraper for collecting data of PS4 game price from ultima.pl
 
-<h1>Step 1: Importing Libraries</h1>
+## Polish below
+
+<h2>Step 1: Importing Libraries</h2>
 
 > import mechanicalsoup<br>
 > import os<br>
@@ -13,13 +15,13 @@ In this step, we import the necessary libraries and modules:<br><br>
 <b>time:</b> - Allows working with time.<br>
 <b>pandas:</b> - A library for data analysis, especially for data manipulation in tabular form (DataFrame).<br>
 
-<h1>Step 2: Creating the GameScraper Class</h1>
+<h2>Step 2: Creating the GameScraper Class</h2>
 
 > class GameScraper:
 
 Here we begin to define the GameScraper class, which will contain all the functionalities related to web scraping.
 
-<h1>Step 3: The __init__ Method</h1>
+<h2>Step 3: The __init__ Method</h2>
 
 > def __init__(self):<br>
 >    self.data = {'Game': [], 'Status': [], 'Price': []}<br>
@@ -34,7 +36,7 @@ In this case, upon object initialization, the following actions are performed:<b
 - Recording the current time as 'start_time'.<br>
 - Creating a browser object using the MechanicalSoup library.<br>
 
-<h1>Step 4: The scrape_page Method</h1>
+<h2>Step 4: The scrape_page Method</h2>
 
 > def scrape_page(self):<br>
 >    url = f```https://www.ultima.pl/ct/playstation-4/gry/?page\={self.page}```<br>
@@ -67,7 +69,7 @@ The <b>scrape_page</b> method is responsible for scraping data from a specific p
 It creates the appropriate URL for that page and opens it using the browser.<br>
 It then finds and saves information about games, their statuses, and prices to the 'data' dictionary.<br>
 
-<h1>Step 5: The run Method</h1>
+<h2>Step 5: The run Method</h2>
 
 > def run(self):<br>
 >    while self.page < 2:  # You can change this condition to fetch more pages<br>
@@ -97,7 +99,7 @@ You can change this condition to fetch more pages.<br>
 After the scraping is complete, the execution time is calculated, and a DataFrame 'df' is created with the data.<br>
 Then a directory named "data" is created, and a CSV file with the data is saved.<br>
 
-<h1>Step 6: Running the Program</h1>
+<h2>Step 6: Running the Program</h2>
 
 > if __name__ == '__main__':<br>
 >    scraper = GameScraper()<br>
@@ -108,10 +110,11 @@ If so, we create an object of the GameScraper class named 'scraper' and execute 
 
 
 ***
+# POLSKI
+***
+# To scraper do zbierania danych o cenach gier PS4 ze strony ultima.pl
 
-## To scraper do zbierania danych o cenach gier PS4 ze strony ultima.pl
-
-<h1>Krok 1: Importowanie Bibliotek</h1>
+<h2>Krok 1: Importowanie Bibliotek</h2>
 
 >    import mechanicalsoup<br>
 >    import os<br>
@@ -124,13 +127,13 @@ W tym kroku importujemy niezbędne biblioteki i moduły:<br><br>
 <b>time:</b> - Umożliwia pracę z czasem.<br>
 <b>pandas:</b> - Biblioteka do analizy danych, szczególnie do manipulacji danymi w postaci tabeli (DataFrame).<br>
 
-<h1>Krok 2: Tworzenie Klasy GameScraper</h1>
+<h2>Krok 2: Tworzenie Klasy GameScraper</h2>
 
 >    class GameScraper:
 
 Tutaj zaczynamy definiować klasę GameScraper, która będzie zawierała wszystkie funkcjonalności związane z scrapowaniem strony.
 
-<h1>Krok 3: Metoda __init__</h1>
+<h2>Krok 3: Metoda __init__</h2>
 
 >    def __init__(self):<br>
 >        self.data = {'Game': [], 'Status': [], 'Price': []}<br>
@@ -146,7 +149,7 @@ Zapisanie bieżącego czasu jako start_time.<br>
 Stworzenie obiektu przeglądarki (browser) z biblioteki MechanicalSoup.<br>
 
 
-<h1>Krok 4: Metoda scrape_page</h1>
+<h2>Krok 4: Metoda scrape_page</h2>
 
 >    def scrape_page(self):
 >        url = f```https://www.ultima.pl/ct/playstation-4/gry/?page\={self.page}```<br>
@@ -181,7 +184,7 @@ Przeglądarka otwiera ten URL.
 Następnie znajduje i zapisuje informacje o grach, ich statusach oraz cenach do słownika data.
 
 
-<h1>Krok 5: Metoda run</h1>
+<h2>Krok 5: Metoda run</h2>
 
 >    def run(self):<br>
 >        while self.page < 2:  # Możesz zmienić ten warunek, aby pobrać więcej stron<br>
@@ -211,7 +214,7 @@ Możesz zmienić ten warunek, aby pobrać więcej stron.<br>
 Po zakończeniu scrapowania, zostanie obliczony czas wykonania i utworzony zostanie DataFrame df z danymi.<br>
 Następnie zostanie utworzony katalog "data" i zapisany zostanie plik CSV z danymi.<br>
 
-<h1>Krok 6: Uruchomienie Programu</h1>
+<h2>Krok 6: Uruchomienie Programu</h2>
 
 >   if __name__ == '__main__':<br>
 >    scraper = UltimaScraper()<br>
