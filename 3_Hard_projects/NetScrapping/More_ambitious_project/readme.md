@@ -7,34 +7,34 @@
 >    import time<br>
 >    import pandas as pd
 
-W tym kroku importujemy niezbędne biblioteki i moduły:<br>
-<b>mechanicalsoup:</b> Umożliwia przeszukiwanie i manipulację stronami internetowymi.<br>
-<b>os:</b> Dostarcza funkcje do operacji na systemie plików.<br>
-<b>time:</b> Umożliwia pracę z czasem.<br>
-<b>pandas:</b> Biblioteka do analizy danych, szczególnie do manipulacji danymi w postaci tabeli (DataFrame).<br>
+W tym kroku importujemy niezbędne biblioteki i moduły:<br><br>
+<b>mechanicalsoup:</b> - Umożliwia przeszukiwanie i manipulację stronami internetowymi.<br>
+<b>os:</b> - Dostarcza funkcje do operacji na systemie plików.<br>
+<b>time:</b> - Umożliwia pracę z czasem.<br>
+<b>pandas:</b> - Biblioteka do analizy danych, szczególnie do manipulacji danymi w postaci tabeli (DataFrame).<br>
 
 <h1>Krok 2: Tworzenie Klasy GameScraper</h1>
 
 >    class GameScraper:
 
-Tutaj zaczynamy definiować klasę UltimaScraper, która będzie zawierała wszystkie funkcjonalności związane z scrapowaniem strony.
+Tutaj zaczynamy definiować klasę GameScraper, która będzie zawierała wszystkie funkcjonalności związane z scrapowaniem strony.
 
 <h1>Krok 3: Metoda __init__</h1>
 
->    def __init__(self):
->        self.data = {'Game': [], 'Status': [], 'Price': []}
->        self.page = 1
->        self.last_index = 0
->        self.start_time = time.time()
->        self.browser = mechanicalsoup.StatefulBrowser()
+>    def __init__(self):<br>
+>        self.data = {'Game': [], 'Status': [], 'Price': []}<br>
+>        self.page = 1<br>
+>        self.last_index = 0<br>
+>        self.start_time = time.time()<br>
+>        self.browser = mechanicalsoup.StatefulBrowser()<br>
 
-<b>__init__ </b>to specjalna metoda, która jest wywoływana podczas inicjalizacji obiektu tej klasy.
-W tym przypadku, przy inicjalizacji obiektu, zostaną wykonane następujące czynności:
-Stworzenie pustego słownika data, który będzie przechowywał informacje o grach.
-Ustawienie page na 1 - oznacza to, że zaczynamy od pierwszej strony.
-Inicjalizacja last_index na 0 - wskazuje na ostatni indeks przetworzonej gry (aktualnie nieużywane).
-Zapisanie bieżącego czasu jako start_time.
-Stworzenie obiektu przeglądarki (browser) z biblioteki MechanicalSoup.
+<b>__init__ </b>to specjalna metoda, która jest wywoływana podczas inicjalizacji obiektu tej klasy.<br>
+W tym przypadku, przy inicjalizacji obiektu, zostaną wykonane następujące czynności:<br>
+Stworzenie pustego słownika data, który będzie przechowywał informacje o grach.<br>
+Ustawienie page na 1 - oznacza to, że zaczynamy od pierwszej strony.<br>
+Inicjalizacja last_index na 0 - wskazuje na ostatni indeks przetworzonej gry (aktualnie nieużywane).<br>
+Zapisanie bieżącego czasu jako start_time.<br>
+Stworzenie obiektu przeglądarki (browser) z biblioteki MechanicalSoup.<br>
 
 
 <h1>Krok 4: Metoda scrape_page</h1>
