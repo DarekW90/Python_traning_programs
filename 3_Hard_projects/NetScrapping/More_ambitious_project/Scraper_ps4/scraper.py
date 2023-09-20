@@ -20,6 +20,8 @@ class GameScraper:
 
         for product in products[3:]:
             product_name = product.text.strip()
+            if 'PS4' in product_name or 'PS5' in product_name:
+                product_name = product_name.replace('PS4', '').replace('PS5', '')
             self.data['Game'].append(product_name)
 
         for status in products_status:
@@ -37,7 +39,7 @@ class GameScraper:
         self.page += 1
 
     def run(self):
-        while self.page < 103:  # Change this condition if needed
+        while self.page < 10:  # Change this condition if needed
             print(f'Page number: {self.page}')
             self.scrape_page()
 
