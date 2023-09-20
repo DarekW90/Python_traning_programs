@@ -11,7 +11,7 @@ browser.open(url)
 ''' extract table headers '''
 th = browser.page.find_all('th', attrs={'class': 'table-rh'})
 distribution = [value.text.replace('\n', '') for value in th]
-# print(distribution.index('Zorin OS'))
+#print(distribution.index('Zorin OS'))
 distribution = distribution[:98]
 # print(distribution)
 
