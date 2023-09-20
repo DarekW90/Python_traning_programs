@@ -530,12 +530,12 @@
                     portfolioDescriptionWebApp.html('Aplikacje Webowe');
                 }
 
-                var portfolioDescriptionAnalytic = $('#portfolio-description-analytic');
+                var portfolioDescriptionScraping = $('#portfolio-description-scraping');
                 if (isChecked) {
-                    portfolioDescriptionAnalytic.html("Analytics")
+                    portfolioDescriptionScraping.html("Scraping")
 					;
                 } else {
-                    portfolioDescriptionAnalytic.html('Analityka');
+                    portfolioDescriptionScraping.html('Scraping');
                 }
 
                 var portfolioDescriptionGames = $('#portfolio-description-games');
