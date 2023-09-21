@@ -39,7 +39,7 @@ class GameScraper:
         self.page += 1
 
     def run(self):
-        while self.page < 10:  # Change this condition if needed
+        while self.page < 103:  # Change this condition if needed
             print(f'Page number: {self.page}')
             self.scrape_page()
 

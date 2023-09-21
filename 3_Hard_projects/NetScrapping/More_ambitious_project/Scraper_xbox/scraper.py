@@ -30,7 +30,7 @@ class GameScraper:
             status_text = status.text.strip()
             self.data['Status'].append(status_text)
 
-        for price in prices[6:]:
+        for price in prices[5:]:
             price_text = price.text.strip()
             if len(price_text) > 0:
                 price_edited = price_text[:-4] + '.' + price_text[-4:]
