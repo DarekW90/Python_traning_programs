@@ -124,3 +124,31 @@ To tylko kilka przykładów algorytmów sortowania.
 Każdy z nich ma swoje mocne strony i słabości, oraz różnice w wydajności w zależności od specyfiki danych wejściowych. 
 Wybór odpowiedniego algorytmu zależy od wielu czynników, takich jak rozmiar listy, charakter danych oraz wymagania co do wydajności.
 
+
+8. Rodzaje requestów?
+
+GET: Pobiera zawartość strony lub zasobu pod wskazanym adresem URL.
+response = requests.get('https://example.com')
+
+POST: Wysyła dane do serwera w celu przetworzenia. Jest używany do przesyłania danych formularzy, przesyłania plików itp.
+data = {'key1': 'value1', 'key2': 'value2'}
+response = requests.post('https://example.com/api/endpoint', data=data)
+
+PUT: Aktualizuje zasób na serwerze. Najczęściej jest używany, aby zmodyfikować istniejący zasób.
+data = {'key1': 'updated_value1', 'key2': 'updated_value2'}
+response = requests.put('https://example.com/api/endpoint/1', data=data)
+
+DELETE: Usuwa określony zasób na serwerze.
+response = requests.delete('https://example.com/api/endpoint/1')
+
+HEAD: Podobne do GET, ale zwraca tylko nagłówki HTTP i nie zawiera samego ciała odpowiedzi.
+response = requests.head('https://example.com')
+
+PATCH: Służy do częściowej aktualizacji zasobu. Może być używany, gdy chcesz zaktualizować tylko część danych zasobu.
+data = {'key1': 'updated_value1'}
+response = requests.patch('https://example.com/api/endpoint/1', data=data)
+
+OPTIONS: Zwraca dostępne metody HTTP dla określonego zasobu.
+response = requests.options('https://example.com')
+
+W przypadku niektórych zapytań, takich jak POST, PUT i PATCH, można przekazywać dane jako argument data lub json.
