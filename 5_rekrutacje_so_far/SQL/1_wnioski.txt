@@ -1,0 +1,31 @@
+Firma "D"
+
+Zgłoszenie i po 1h dostaje egzaminy do rozwiązania
+
+1. egzamin język angielski 
+    - czytanie
+    - pisanie
+    - mowa potoczna
+    - bardziej szczegółowa
+
+    Wynik: B2
+
+2. egzamin język polski
+    - bardzo rozstrzelony poziom trudności rozumienia języka Polskiego
+
+    Wynik: 98%
+
+3. egzamin matematyka
+    - średnio skomplikowany, bardziej nastawiony na rozumienie schematów i wykresów
+
+    Wynik: 55%
+
+Po napisaniu tych trzech egzaminów 3 dni czekania na dalsze wytyczne i dostaje egzamin główny z SQL... "poziom junior"
+    - powiem tak... jeśli to był poziom na juniora to boje się co jest dalej by zostać midem albo seniorem...
+
+    Wynik: 11%
+
+
+Mimo, że owa firma reklamuje swój sposób rekrutacji jako "spokojny", nawet w filmach informują, "najważniejsza jest rozmowa z rekruterem, egzaminy mogą pójść gorzej bo się miało np gorszy dzień - info z filmu promującego", to po napisaniu egzaminu SQL z słabym wynikiem dostałem natychmiastowo automatycznego maila o odrzuceniu mojej aplikacji...
+
+No cóż, rozumiem że 11% to nie jest kosmiczny wynik... nawet w szkole to jest wynik niedostateczny... ale te pytania moim zdaniem nie były dla poziomu juniora (albo po prostu ja jestem, aż tak słaby).

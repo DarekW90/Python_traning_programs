@@ -1,0 +1,18 @@
+Pierwsza firma która chciała ze mna rozmawiać "ML"
+
+Jedne z pierwszych CV, szybka odpowiedź.... myślę "wow", i na tym koniec...
+Rozmowa przez Teams bardzo szczegółowa dotycząca wielu aspektów programowania PHP - zaznaczając, że to rozmowa na stanowisko Młodszego programisty...
+
+Otrzymłem zadanie do zrobienia, wymagające połączenia PHP z SQL albo z Redis (o którym wcześniej nie wiedziałem nawet, że coś takiego istnieje...)
+
+Zadanie wykonałem, nawet poprawnie i wszystko działało zgodnie z założeniami... Mimo to firma podziękowała mnie za udział w rekrutacji...ponieważ...
+Nie zastosowałem obiektowości...
+
+No cóż, przynajmniej dostałem feedback.
+
+Minął ponad miesiąc od tamtego czasu. Dziś (29.09.2023) widzę na ich stronie, że nadal szukają tego programisty...
+
+
+## Wnioski ##
+
+Może w ogóle nie szukali (?)
