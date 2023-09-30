@@ -1,0 +1,24 @@
+==== In Polish ====
+
+
+Uruchamianie testów jednostkowych z komand line wymaga komendy:
+
+python -m unittest (nazwa programu testującego)
+
+
+lub dopisać na końcu programu wiersz:
+
+if __name__ == '__main__':
+    unittest.main()
+
+więcej info: https://youtu.be/sugvnHA7ElY
+
+Dopisanie tego umożliwia uruchamianie programu bezpośrednio
+
+
+####################################################################################
+
+Ważne funkcje testów zapisywać w formie test_(coś), ponieważ forma (coś)_test nie będzie działać
+
+####################################################################################
+
