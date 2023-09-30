@@ -1,0 +1,16 @@
+The Tree Laws of TDD
+
+- Robert C. Martin (Uncle Bob)
+
+################################################################################################
+
+1. You may not write production code unless you've first written a failing unit test.
+2. You may not write more of a unit test than is sufficient to fail.
+3. You may not write more production code than is sufficient to make the failing unit test pass.
+
+
+################################################################################################
+
+1. Nie możesz pisać kodu produkcyjnego, chyba że najpierw napisałeś nieudany test jednostkowy.
+2. Nie możesz napisać więcej testów jednostkowych, niż jest to wystarczające do niepowodzenia.
+3. Nie możesz napisać więcej kodu produkcyjnego, niż jest to wystarczające do zaliczenia testu jednostkowego, który zakończył się niepowodzeniem.
