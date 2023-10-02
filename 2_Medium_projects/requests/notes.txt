@@ -1,0 +1,6 @@
+GET:
+
+abc.get : Do pobierania danych z http
+
+POST:
+
