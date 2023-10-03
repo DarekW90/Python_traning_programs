@@ -1,0 +1,59 @@
+## ściąga:
+    https://docs.conda.io/projects/conda/en/4.6.0/_downloads/52a95608c49671267e40c689e0bc00ca/conda-cheatsheet.pdf
+
+Anaconda pozwala na tworzenie środowisko pracy (working enviroment)
+Środowisko pracy:
+    Pozwala na posiadanie wielu wersji python na jednym komputerze
+
+Tworzenie środowiska pracy:
+    conda create --name (nazwa środowiska) (wersja python)
+    
+    przykład:
+        conda create --name env39 python=3.9
+
+
+Powrót do "base":
+    source ~/.bashrc
+
+Wejscie do środowiska:
+    conda activate (nazwa środowiska)
+
+    przykład:
+        conda activate env39
+
+Wyjście:
+    conda deactivate
+
+Instalowanie modułów:
+        Te nazwy można wyszukać w google wpisująć "anaconda"
+    conda install -c (nazwa)
+    
+    przykład:
+        conda install -c pytorch pytorch
+
+Sprawdzenie dostepnych modułów wewnątrz aktualnie aktywnego środowiska:
+    conda list
+
+Update modułu:
+    conda update (nazwa)
+
+    przykład:
+        conda update pytorch
+
+Usuwanie modułów:
+    conda remove (nazwa)
+
+    przykład:
+        conda remove pygame
+
+Sprawdzenie dostępnych - utworzonych środowisk:
+    conda env list
+
+Usuwanie środowisk:
+    conda remove --name (ENV_NAME) --all
+
+
+
+Wyświetlenie dostępnych plików w folderze
+    dir
+
