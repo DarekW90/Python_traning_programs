@@ -53,7 +53,7 @@ class D2Login:
         self.driver.get(url)
         self.driver.maximize_window()
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(current_dir, 'login.txt')
+        file_path = os.path.join(current_dir, account)
 
         with open(file_path, 'r') as file:
             lines = file.readlines()
@@ -103,34 +103,50 @@ class D2Login:
         # click create
         self.driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/div[2]/div/div/menu/a[2]/div/span').click()
         time.sleep(2)
-    
+        
         # click select page
         self.driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div/div[2]/select').click()
         # click w stash
-        print('Which one stash should be checked?')
-        print('1 for None')
-        print('2 for Main')
-        print('3 for Stash 1')
-        print('4 for Stash 2')
-        print('5 for Stash 3')
-        print('6 for Stash 4')
-        print('7 for Stash 5')
-        print('8 for Stash 6')
-        print('9 for Stash 7')
-        print('10 for Stash 8')
-        print('11 for Stash 9')
-        print()
-        stash = input('Please select: ')
-        self.driver.find_element(By.XPATH, f'//*[@id="app"]/div[1]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div/div[2]/select/option[{stash}]').click()
-        #time.sleep(2)
-        # zatwierdzenie wyboru
-        self.driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div/div[2]/select').click()
-        #time.sleep(2)
-        # wyszukaj
-        self.driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/div[2]/div/div/div/div/div[2]/div/div/button[1]').click()
-        
-        # klik add
         while True:
+            print('Which one stash should be checked?')
+            element_list = []
+            
+            select_stash = self.driver.find_elements(By.XPATH, '//*[@id="app"]/div[1]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div/div[2]/select')
+            for e in select_stash:
+                element_list.append(e.text)
+                
+            change_list_to_string = element_list[0]
+            splitted_list = change_list_to_string.split('\n')
+            print(splitted_list)
+            print()
+            print(len(splitted_list))
+            
+            print()
+            for index, element in enumerate(splitted_list):
+                print(f'{index+1} is {element}')
+                
+            while True:
+                stash = input('Please select: ')
+                try:
+                    stash = int(stash)
+                    if 1 <= stash <= len(splitted_list):
+                        break
+                    else:
+                        print(f'Input must be between 1 and {len(splitted_list)}')
+                        
+                except ValueError:
+                    print('Please input integer number')
+        
+            self.driver.find_element(By.XPATH, f'//*[@id="app"]/div[1]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div/div[2]/select/option[{stash}]').click()
+            #time.sleep(2)
+            # zatwierdzenie wyboru
+            self.driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/div[2]/div/div/div/div/div[2]/div/div/div[2]/div/div[2]/select').click()
+            #time.sleep(2)
+            # wyszukaj
+            self.driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/div[2]/div/div/div/div/div[2]/div/div/button[1]').click()
+        
+            # klik add
+        
             counter = 1
             
             while counter <= 30:
@@ -186,11 +202,6 @@ class D2Login:
                     print(f'Element of index {counter} cannot be found')
                     counter += 1
 
-            result = self.continue_or_close()
-            if result:
-                True
-            else:
-                break
             
             # reload page
             self.driver.find_element(By.XPATH, '/html/body').send_keys(Keys.HOME)
@@ -208,7 +219,8 @@ class D2Login:
             time.sleep(2)
             # wyszukaj
             self.driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/div[2]/div/div/div/div/div[2]/div/div/button[1]').click()    
-        
+
+            
         
         
         #start_select = self.start_select()
@@ -260,6 +272,16 @@ if __name__ == '__main__':
         
         break
     
-    login_manager = D2Login(wss_input)
-    login_manager.login('https://www.projectdiablo2.com/login','login.txt')
-    login_manager.close()
+    while True:
+        print('Test or Main account?')
+        login_account = input('Where to login? ').lower()
+        if login_account == 'main':
+            print('Main account selected')
+            account = 'loginMain.txt'
+        elif login_account == 'test':
+            print('Test account selected')
+            account = 'loginTest.txt'
+        
+        login_manager = D2Login(wss_input)
+        login_manager.login('https://www.projectdiablo2.com/login', f'{account}')
+        login_manager.close()
