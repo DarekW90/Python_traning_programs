@@ -2,7 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.common.exceptions import NoSuchElementException
-import time, os
+import time, os, math
 
 
 class AduTomat:
@@ -41,113 +41,201 @@ class AduTomat:
             splitted_character_text = character.text.split()
             character_list.append(splitted_character_text[0])
             
-        for index, character in enumerate(character_list, start=1):
-            print(f'{index} : {character}')
+        while True:    
         
-        while True:
-            try:
+            for index, character in enumerate(character_list, start=1):
+                print(f'{index} : {character}')
+                
+            print()
+            select_character = int(input(f'Podaj numer postaci do zalogowania (od 1 do {len(character_list)}): '))
+            if 1 <= select_character <= len(character_list):
+                selected_character = self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[{select_character+1}]')
+                
+                '''Wymyśl jak zostawić taki schemat a jednocześnie usunąc 
+                "Archiwizuj/Przywróć Postać" z ostatniej lini '''
+                
                 print()
-                select_character = int(input(f'Podaj numer postaci do zalogowania (od 1 do {len(character_list)}): '))
-                if 1 <= select_character <= len(character_list):
-                    selected_character = self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[{select_character+1}]')
-                    # delete_words = selected_character.text.split()
-                    # modified_text = ' '.join(delete_words[:-2]) 
-                    # print()
-                    # print(modified_text)
-                    # print()
-                    
-                    '''Wymyśl jak zostawić taki schemat a jednocześnie usunąc 
-                    "Archiwizuj/Przywróć Postać" z ostatniej lini '''
-                    
-                    print()
-                    print(selected_character.text)
-                    print()
-                    while True:
-                        character_check = input('Chcesz zalogować tę postac? [T/N]: ').upper()
-                        if character_check == 'T' or 'Y':
-                            self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[{select_character+1}]/div[11]').click()
-                            print()
-                            break
-                        
-                        elif character_check == 'N':
-                            break
-                        else:
-                            print('Podano niepoprawną wartość. Podaj T/N')
-                else:
-                    print('Wartość poza zakresem')
-                    
-            except ValueError:
-                print('Podano złą wartość')
-                continue
+                print(selected_character.text)
+                print()
             
-            break
-        
+                character_check = input('Chcesz zalogować tę postac? [T/N]: ').upper()
+                if character_check in ['T', 'Y']:
+                    self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[{select_character+1}]/div[11]').click()
+                    print()
+                    break
+                
+                elif character_check == 'N':
+                    continue
+                else:
+                    print('Podano niepoprawną wartość. Podaj T/N')
+            else:
+                print('Wartość poza zakresem')
+                        
     def main_menu(self):
         print('Gdzie chcesz przejść w menu:')
         print()
         menu_list = []
         # wyszukaj wszystkie postaci na stronie dostepne do zalogowania
         
-        # menu_options = self.driver.find_elements(By.CLASS_NAME, 'srodek_dol')
         menu_options = self.driver.find_elements(By.CSS_SELECTOR,'a.srodek_dol')
         
         for index, menu_option in enumerate(menu_options):
             if index >= 14:
                 break
             ref_content = menu_option.get_attribute('ref')
-            menu_list.append(ref_content)
+            link_content = menu_option.get_attribute('href')
+            menu_list.append((ref_content, link_content))
+            
             print(f'{index +1} : {ref_content}')
-
+            
         while True:
             try:
                 print()
-                select_menu = int(input(f'Podaj numer w menu do przejscia (od 1 do {len(menu_list)}): '))
-                if 1 <= select_menu <= len(menu_list):
-                    if select_menu == 1:
-                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[1]/img').click()
-                    elif select_menu == 2:
-                        self.driver.find_element(By.XPATH, f'//*[@id="profilup"]/a/img').click()
-                    elif select_menu == 3:
-                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[2]/img').click()
-                    elif select_menu == 4:
-                        self.driver.find_element(By.XPATH, f'//*[@id="pocztanew"]/a/img').click()
-                    elif select_menu == 5:
-                        self.driver.find_element(By.XPATH, f'//*[@id="logsnew"]/a/img').click()
-                    elif select_menu == 6:
-                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[3]/img').click()
-                    elif select_menu == 7:
-                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[4]/img').click()
-                    elif select_menu == 8:
-                        self.driver.find_element(By.XPATH, f'//*[@id="inncount"]/a/img').click()
-                    elif select_menu == 9:
-                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[5]/img').click()
-                    elif select_menu == 10:
-                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[6]/img').click()
-                    elif select_menu == 11:
-                        self.driver.find_element(By.XPATH, f'//*[@id="storiesnew"]/a/img').click()
-                    elif select_menu == 12:
-                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[7]/img').click()
-                    elif select_menu == 13:
-                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[8]/img').click()
-                    elif select_menu == 14:
-                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[9]/img').click()
-              
-                
-                
-                # else:
-                #     print('Wartość poza zakresem')
-                    
+                ''' wyłączone do testów '''
+                #select_menu = int(input(f'Podaj numer w menu do przejścia (od 1 do {len(menu_list)}): '))
+                #element_to_click = menu_list[select_menu - 1]
+                element_to_click = menu_list[11]
+                link_content = element_to_click[1]
+                self.driver.get(link_content)
             except ValueError:
-                print('Podano złą wartość')
-                continue
-            
+                print("Wprowadź poprawną liczbę.")
             break            
         
-
+    def organizacje_i_rody(self):
+        # organizacja walczy o ...
+        #time.sleep(2)
+        fight_info = self.driver.find_element(By.XPATH, f'//*[@id="component_content"]/div[2]/h1[1]')
+        print(fight_info.text)
+        # organizacja wygrała do tej pory XXX walk
+        fight_info_2 = self.driver.find_element(By.XPATH, f'//*[@id="component_content"]/div[2]/h1[3]')
+        print(fight_info_2.text)
+        # weź udział
+        join_fight = self.driver.find_element(By.XPATH, f'//*[@id="component_content"]/div[2]/h1[4]/a')
+        #print(join_fight.text)
+        while True:
+            try:
+                joining = input('Chcesz dołączyć (T/N)? ').upper()
+                if joining in ['T', 'Y']:
+                    join_fight.click()
+                    break
+                elif joining == 'N':
+                    print('Powrót do strony głównej')
+                    self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[1]/img').click()
+                    self.main_menu()
+                    break
+                else:
+                    print('Podano złą wartość')
+            except ValueError:
+                print('Podano złą wartość (T/N)')
+    
+    def menu_walk(self):
+        while True:
+            check_pa = self.driver.find_element(By.XPATH, f'/html/body/div[6]/div[3]/div[6]/div[2]/div[1]/div[3]/div[4]/span[1]')
+            print(f'Posiadasz dostępnych {check_pa.text} PA')
+            int_check_pa = int(check_pa.text)
+            print(f'Pozwala to na stoczenie >>> {math.floor(int_check_pa/10)}')
+            print()
+            battle_count = int(input('Ile chcesz stoczyć walk : '))
+            
+            battle_loop = 1
+            while battle_loop <= battle_count:
+                print(f'Pętla walk: {battle_loop}')
+                time.sleep(2)
+                # heal
+                heal = self.driver.find_element(By.XPATH, f'/html/body/div[4]/div[1]/a[5]')
+                print('heal')
+                heal.click()
+                
+                # repair
+                repair = self.driver.find_element(By.XPATH, f'/html/body/div[4]/div[1]/a[6]')
+                print('repair')
+                repair.click()
+                
+                help_for_pa = self.driver.find_element(By.XPATH, f'//*[@id="component_content"]/div[1]/hgroup/div/form[1]/input')
+                help_for_pa.click()
+                
+                time.sleep(2)
+                summon = self.driver.find_element(By.XPATH, f'//*[@id="player_1"]/div[6]/img[5]')
+                print('przywołanie szkieletu')
+                summon.click()
+                time.sleep(1)
+                
+                defend_count = 0
+                while defend_count <= 3:
+                    try:
+                        time.sleep(1)
+                        print(f'Klik Defend x {defend_count+1}')
+                        defend = self.driver.find_element(By.XPATH, f'//*[@id="player_1"]/div[6]/img[1]')
+                        defend.click()
+                        defend_count += 1
+                    except NoSuchElementException:
+                        print('nieznaleziono defend')
+                        defend_count += 1
+                
+                liczba_wrogow = 0
+                
+                for x in range(2,11):
+                    element_name = f'player_{x}'
+                    
+                    elements = self.driver.find_elements(By.XPATH, f'//*[@id="{element_name}"]/div[2]')
+                    
+                    liczba_wrogow += len(elements)
+                    
+                print(f"Liczba znalezionych elementów 'player_x': {liczba_wrogow}")
+                
+                
+                #print(f' Liczba przeciwników: {len(enemy_count_list)}')
+                input('przerwij program ręcznie')
+                
+                target_count = 2
+                while target_count <= liczba_wrogow:
+                    print(f'Numer wroga: {target_count}')
+                    try:
+                        target = self.driver.find_element(By.XPATH, f'//*[@id="player_{target_count}"]/div[6]/img[1]')
+                        time.sleep(1)
+                        print(f'atak na wroga {target_count}')
+                        target.click()
+                        time.sleep(1)
+                        
+                        div_number = 1
+                        while True:
+                            try:
+                                attack_head = self.driver.find_element(By.XPATH,
+                                                                f"/html/body/div/div[3]/div[5]/div[4]/div[{div_number}]/div[1]/div[1]")
+                                print(f'wszukiwanie celu glowa przeciwnika nr :  {div_number}')
+                                
+                                time.sleep(1)
+                                break
+                            except NoSuchElementException:
+                                div_number += 1
+                                print("nie znaleziono celu - głowa: ")
+                                
+                        time.sleep(0.1)
+                        # print("attack head", attack_head)
+                        print(f'atak w głowe przeciwnika nr :  {div_number}')
+                        time.sleep(1)
+                        attack_head.click()
+                        
+                    except NoSuchElementException:
+                        time.sleep(1)
+                        print('brak celu')
+                        target_count += 1
+                
+                time.sleep(1)
+                quit_battle = self.driver.find_element(By.XPATH, f'//*[@id="fight_middleside"]/div[1]/div[1]/a')
+                quit_battle.click()
+                battle_loop += 1
         
-      
-    
-    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     def close(self):
         print('koniec programu')
         time.sleep(50)
@@ -176,6 +264,8 @@ if __name__ == '__main__':
             login_manager.fill_form()
             login_manager.character_select()
             login_manager.main_menu()
+            login_manager.organizacje_i_rody()
+            login_manager.menu_walk()
             login_manager.close()
             
         else:
