@@ -31,14 +31,50 @@ class AduTomat:
     
     def character_select(self):
         character_loop = 1
+        print('Wybierz postać:')
+        print()
+        while character_loop <= 16:
+            try:
+                # wyszukaj wszystkie postaci na stronie dostepne do zalogowania
+                
+                character = self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[{character_loop}]/div[1]')
+                splitted_character_text = character.text.split()
+                print(f'{character_loop -1}:{splitted_character_text[0]}')
+                character_loop += 1
+            except NoSuchElementException:
+                character_loop += 1
+                
         while True:
             try:
-                character = self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[{character_loop}]/div[1]')
-                print(character.text)
-                character_loop += 1
+                print()
+                select_character = int(input('Podaj numer postaci do zalogowania: '))
             except ValueError:
-                print('Please input integer number')
-                character_loop += 1
+                print('Podano złą wartość')
+                continue
+        
+            if select_character:
+                selected_character = self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[{select_character+1}]')
+                # delete_words = selected_character.text.split()
+                # modified_text = ' '.join(delete_words[:-2]) 
+                # print()
+                # print(modified_text)
+                # print()
+                
+                '''Wymyśl jak zostawić taki schemat a jednocześnie usunąc "Archiwizuj/Przywróć Postać" z ostatniej lini '''
+                
+                print()
+                print(selected_character.text)
+                print()
+                while True:
+                    character_check = input('Chcesz zalogować tę postac? [T/N]: ').upper()
+                    if character_check == 'T':
+                        self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[{select_character+1}]/div[11]').click()
+                        
+                    elif character_check == 'N':
+                        break
+                    else:
+                        print('Podano niepoprawną wartość. Podaj T/N')
+        
             
             
         '''
@@ -70,7 +106,9 @@ if __name__ == '__main__':
             logInto = lines[1].split()[2]
             password = lines[2].split()[2]
             
-            print(f'{page}, {logInto}, {password}')
+            print(f'Page: {page}')
+            print(f'Login: {logInto}')
+            print(f'Password: {password}')
             
             login_manager = AduTomat(page, logInto, password)
             login_manager.login()
