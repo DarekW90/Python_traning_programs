@@ -30,67 +30,127 @@ class AduTomat:
         time.sleep(2)
     
     def character_select(self):
-        character_loop = 1
         print('Wybierz postać:')
         print()
-        while character_loop <= 16:
-            try:
-                # wyszukaj wszystkie postaci na stronie dostepne do zalogowania
-                
-                character = self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[{character_loop}]/div[1]')
-                splitted_character_text = character.text.split()
-                print(f'{character_loop -1}:{splitted_character_text[0]}')
-                character_loop += 1
-            except NoSuchElementException:
-                character_loop += 1
-                
+        character_list = []
+        # wyszukaj wszystkie postaci na stronie dostepne do zalogowania
+        
+        characters = self.driver.find_elements(By.CLASS_NAME, 'charName')
+        
+        for character in characters:
+            splitted_character_text = character.text.split()
+            character_list.append(splitted_character_text[0])
+            
+        for index, character in enumerate(character_list, start=1):
+            print(f'{index} : {character}')
+        
         while True:
             try:
                 print()
-                select_character = int(input('Podaj numer postaci do zalogowania: '))
+                select_character = int(input(f'Podaj numer postaci do zalogowania (od 1 do {len(character_list)}): '))
+                if 1 <= select_character <= len(character_list):
+                    selected_character = self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[{select_character+1}]')
+                    # delete_words = selected_character.text.split()
+                    # modified_text = ' '.join(delete_words[:-2]) 
+                    # print()
+                    # print(modified_text)
+                    # print()
+                    
+                    '''Wymyśl jak zostawić taki schemat a jednocześnie usunąc 
+                    "Archiwizuj/Przywróć Postać" z ostatniej lini '''
+                    
+                    print()
+                    print(selected_character.text)
+                    print()
+                    while True:
+                        character_check = input('Chcesz zalogować tę postac? [T/N]: ').upper()
+                        if character_check == 'T' or 'Y':
+                            self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[{select_character+1}]/div[11]').click()
+                            print()
+                            break
+                        
+                        elif character_check == 'N':
+                            break
+                        else:
+                            print('Podano niepoprawną wartość. Podaj T/N')
+                else:
+                    print('Wartość poza zakresem')
+                    
             except ValueError:
                 print('Podano złą wartość')
                 continue
-        
-            if select_character:
-                selected_character = self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[{select_character+1}]')
-                # delete_words = selected_character.text.split()
-                # modified_text = ' '.join(delete_words[:-2]) 
-                # print()
-                # print(modified_text)
-                # print()
-                
-                '''Wymyśl jak zostawić taki schemat a jednocześnie usunąc "Archiwizuj/Przywróć Postać" z ostatniej lini '''
-                
-                print()
-                print(selected_character.text)
-                print()
-                while True:
-                    character_check = input('Chcesz zalogować tę postac? [T/N]: ').upper()
-                    if character_check == 'T':
-                        self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[{select_character+1}]/div[11]').click()
-                        
-                    elif character_check == 'N':
-                        break
-                    else:
-                        print('Podano niepoprawną wartość. Podaj T/N')
-        
             
+            break
+        
+    def main_menu(self):
+        print('Gdzie chcesz przejść w menu:')
+        print()
+        menu_list = []
+        # wyszukaj wszystkie postaci na stronie dostepne do zalogowania
+        
+        # menu_options = self.driver.find_elements(By.CLASS_NAME, 'srodek_dol')
+        menu_options = self.driver.find_elements(By.CSS_SELECTOR,'a.srodek_dol')
+        
+        for index, menu_option in enumerate(menu_options):
+            if index >= 14:
+                break
+            ref_content = menu_option.get_attribute('ref')
+            menu_list.append(ref_content)
+            print(f'{index +1} : {ref_content}')
+
+        while True:
+            try:
+                print()
+                select_menu = int(input(f'Podaj numer w menu do przejscia (od 1 do {len(menu_list)}): '))
+                if 1 <= select_menu <= len(menu_list):
+                    if select_menu == 1:
+                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[1]/img').click()
+                    elif select_menu == 2:
+                        self.driver.find_element(By.XPATH, f'//*[@id="profilup"]/a/img').click()
+                    elif select_menu == 3:
+                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[2]/img').click()
+                    elif select_menu == 4:
+                        self.driver.find_element(By.XPATH, f'//*[@id="pocztanew"]/a/img').click()
+                    elif select_menu == 5:
+                        self.driver.find_element(By.XPATH, f'//*[@id="logsnew"]/a/img').click()
+                    elif select_menu == 6:
+                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[3]/img').click()
+                    elif select_menu == 7:
+                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[4]/img').click()
+                    elif select_menu == 8:
+                        self.driver.find_element(By.XPATH, f'//*[@id="inncount"]/a/img').click()
+                    elif select_menu == 9:
+                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[5]/img').click()
+                    elif select_menu == 10:
+                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[6]/img').click()
+                    elif select_menu == 11:
+                        self.driver.find_element(By.XPATH, f'//*[@id="storiesnew"]/a/img').click()
+                    elif select_menu == 12:
+                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[7]/img').click()
+                    elif select_menu == 13:
+                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[8]/img').click()
+                    elif select_menu == 14:
+                        self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[9]/img').click()
+              
+                
+                
+                # else:
+                #     print('Wartość poza zakresem')
+                    
+            except ValueError:
+                print('Podano złą wartość')
+                continue
             
-        '''
-        //*[@id="tabs"]/div[1]/div[11]
-        //*[@id="tabs"]/div[2]/div[11]
-        //*[@id="tabs"]/div[3]/div[11]
-        //*[@id="tabs"]/div[4]/div[11]
-        //*[@id="tabs"]/div[5]/div[9]
-        //*[@id="tabs"]/div[6]/div[9]
-        //*[@id="tabs"]/div[15]/div[9]
-        '''
-    
+            break            
+        
+
+        
+      
     
     
     def close(self):
-        time.sleep(60)
+        print('koniec programu')
+        time.sleep(50)
         self.driver.quit()
 
 if __name__ == '__main__':
@@ -106,6 +166,7 @@ if __name__ == '__main__':
             logInto = lines[1].split()[2]
             password = lines[2].split()[2]
             
+            print('Informacje pobrano z pliku .txt')
             print(f'Page: {page}')
             print(f'Login: {logInto}')
             print(f'Password: {password}')
@@ -114,6 +175,7 @@ if __name__ == '__main__':
             login_manager.login()
             login_manager.fill_form()
             login_manager.character_select()
+            login_manager.main_menu()
             login_manager.close()
             
         else:
