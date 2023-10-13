@@ -40,19 +40,27 @@ class AduTomat:
         for character in characters:
             splitted_character_text = character.text.split()
             character_list.append(splitted_character_text[0])
-            
+        
+        ''' dodano dla testów '''
+        self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[2]').click()
+        
+        ''' wyłączono do testów'''
+        '''
         while True:    
         
             for index, character in enumerate(character_list, start=1):
                 print(f'{index} : {character}')
                 
+            
+               
             print()
             select_character = int(input(f'Podaj numer postaci do zalogowania (od 1 do {len(character_list)}): '))
             if 1 <= select_character <= len(character_list):
-                selected_character = self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[{select_character+1}]')
+                #selected_character = self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[{select_character+1}]')
+                selected_character = self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[2]').click()
                 
-                '''Wymyśl jak zostawić taki schemat a jednocześnie usunąc 
-                "Archiwizuj/Przywróć Postać" z ostatniej lini '''
+                #Wymyśl jak zostawić taki schemat a jednocześnie usunąc 
+                # Archiwizuj/Przywróć Postać z ostatniej lini 
                 
                 print()
                 print(selected_character.text)
@@ -70,7 +78,8 @@ class AduTomat:
                     print('Podano niepoprawną wartość. Podaj T/N')
             else:
                 print('Wartość poza zakresem')
-                        
+        '''        
+        
     def main_menu(self):
         print('Gdzie chcesz przejść w menu:')
         print()
@@ -140,7 +149,13 @@ class AduTomat:
             battle_loop = 1
             while battle_loop <= battle_count:
                 print(f'Pętla walk: {battle_loop}')
+                # ------------------------------------------
+                # Tutaj delay na załadowanie okna startowego
+                # ------------------------------------------
+                # !!!!!!!! NIE ZMIENIAĆ !!!!!!!!
+                # ------------------------------------------
                 time.sleep(2)
+                # ------------------------------------------
                 # heal
                 heal = self.driver.find_element(By.XPATH, f'/html/body/div[4]/div[1]/a[5]')
                 print('heal')
@@ -154,16 +169,32 @@ class AduTomat:
                 help_for_pa = self.driver.find_element(By.XPATH, f'//*[@id="component_content"]/div[1]/hgroup/div/form[1]/input')
                 help_for_pa.click()
                 
+                # ------------------------------------------
+                # tutaj delay na załadowanie planszy walki 
+                # ------------------------------------------
+                # !!!!!!!! NIE ZMIENIAĆ !!!!!!!!
+                # ------------------------------------------
                 time.sleep(2)
+                # ------------------------------------------
+                
                 summon = self.driver.find_element(By.XPATH, f'//*[@id="player_1"]/div[6]/img[5]')
                 print('przywołanie szkieletu')
                 summon.click()
+                
+                # ------------------------------------------
+                # tutaj delay miedzy summonem a klikaniem tarczy
+                # ------------------------------------------
                 time.sleep(1)
+                # ------------------------------------------
                 
                 defend_count = 0
                 while defend_count <= 3:
                     try:
-                        time.sleep(1)
+                        # ------------------------------------------
+                        # tutaj delay pomiędzy kliklięciami tarczy
+                        # ------------------------------------------
+                        time.sleep(0.3)
+                        # ------------------------------------------
                         print(f'Klik Defend x {defend_count+1}')
                         defend = self.driver.find_element(By.XPATH, f'//*[@id="player_1"]/div[6]/img[1]')
                         defend.click()
@@ -171,70 +202,84 @@ class AduTomat:
                     except NoSuchElementException:
                         print('nieznaleziono defend')
                         defend_count += 1
+                        
+                # ------------------------------------------
+                # tutaj delay na przeliczenie ilości przeciwników
+                # ------------------------------------------
+                time.sleep(2)
+                # ------------------------------------------
                 
-                liczba_wrogow = 0
+                wykryto_wrogow = 0
                 
-                for x in range(2,11):
+                for x in range(2,20):
                     element_name = f'player_{x}'
-                    
                     elements = self.driver.find_elements(By.XPATH, f'//*[@id="{element_name}"]/div[2]')
+                    wykryto_wrogow += len(elements)
                     
-                    liczba_wrogow += len(elements)
-                    
-                print(f"Liczba znalezionych elementów 'player_x': {liczba_wrogow}")
+                print(f"Liczba znalezionych elementów 'player_x': {wykryto_wrogow}")
                 
+                #wykryto_wrogow = 15
                 
-                #print(f' Liczba przeciwników: {len(enemy_count_list)}')
-                input('przerwij program ręcznie')
+                # input('przerwij program ręcznie')
                 
-                target_count = 2
+                target_count = 1
+                liczba_wrogow = ((wykryto_wrogow*2)-1)
                 while target_count <= liczba_wrogow:
                     print(f'Numer wroga: {target_count}')
                     try:
-                        target = self.driver.find_element(By.XPATH, f'//*[@id="player_{target_count}"]/div[6]/img[1]')
-                        time.sleep(1)
-                        print(f'atak na wroga {target_count}')
-                        target.click()
-                        time.sleep(1)
+                        atak_aoe = self.driver.find_element(By.XPATH, f'/html/body/div/div[3]/div[5]/div[4]/div[{target_count}]/div[6]/img[1]')
                         
-                        div_number = 1
-                        while True:
-                            try:
-                                attack_head = self.driver.find_element(By.XPATH,
-                                                                f"/html/body/div/div[3]/div[5]/div[4]/div[{div_number}]/div[1]/div[1]")
-                                print(f'wszukiwanie celu glowa przeciwnika nr :  {div_number}')
-                                
-                                time.sleep(1)
-                                break
-                            except NoSuchElementException:
-                                div_number += 1
-                                print("nie znaleziono celu - głowa: ")
-                                
-                        time.sleep(0.1)
-                        # print("attack head", attack_head)
-                        print(f'atak w głowe przeciwnika nr :  {div_number}')
-                        time.sleep(1)
-                        attack_head.click()
+                        # ------------------------------------------
+                        # Tutaj delay przed kliknięciem ataku
+                        # ------------------------------------------
+                        #time.sleep(1)
+                        # ------------------------------------------
                         
+                        print(f'Atak AoE na : {target_count}')
+                        atak_aoe.click()
+                        
+                        # ------------------------------------------
+                        # Tutaj delay na załadowanie się "ludzika" 
+                        # ------------------------------------------
+                        time.sleep(2)
+                        # ------------------------------------------
+                        
+                        try:
+                            attack_head = self.driver.find_element(By.XPATH,
+                                                            f"/html/body/div/div[3]/div[5]/div[4]/div[{target_count}]/div[1]/div[1]")
+                            #print(f'wszukiwanie celu glowa przeciwnika nr :  {div_number}')
+                            print(f'atak w głowe przeciwnika nr :  {target_count}')
+                            print()
+                            attack_head.click()
+                            
+                            # ------------------------------------------
+                            # Tutaj delay po kliknięciu ataku w głowę
+                            # ------------------------------------------
+                            time.sleep(1)
+                            # ------------------------------------------
+                            
+                        except NoSuchElementException:
+                            print(f"nie znaleziono celu - głowa: dla przeciwnika nr: {target_count}")
+                            
                     except NoSuchElementException:
-                        time.sleep(1)
-                        print('brak celu')
+                        
+                        # ------------------------------------------
+                        # Tutaj delay na wyszukanie następnego celu
+                        # ------------------------------------------
+                        #time.sleep(1)
+                        # ------------------------------------------
+                        
+                        print(f'brak celu: {target_count}')
                         target_count += 1
-                
+                        
+                # ------------------------------------------
+                # Tutaj delay na rozpoczęcie nowej rundy - klik Wyjdz z walki
+                # ------------------------------------------
                 time.sleep(1)
+                # ------------------------------------------
                 quit_battle = self.driver.find_element(By.XPATH, f'//*[@id="fight_middleside"]/div[1]/div[1]/a')
                 quit_battle.click()
                 battle_loop += 1
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
     def close(self):
         print('koniec programu')
