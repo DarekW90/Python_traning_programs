@@ -14,7 +14,10 @@ class AduTomat:
     
     def init_driver(self):
         options = webdriver.ChromeOptions()
-        options.headless = True
+        #options.headless = True
+        #options.add_argument('--headless')
+        #options.add_argument('--disable-gpu')
+        #options.add_argument('--no-sandbox')
         return webdriver.Chrome(options=options)
     
     def login(self):
@@ -139,6 +142,7 @@ class AduTomat:
     
     def menu_walk(self):
         while True:
+            start_total_time = time.time()
             check_pa = self.driver.find_element(By.XPATH, f'/html/body/div[6]/div[3]/div[6]/div[2]/div[1]/div[3]/div[4]/span[1]')
             print(f'Posiadasz dostępnych {check_pa.text} PA')
             int_check_pa = int(check_pa.text)
@@ -148,13 +152,15 @@ class AduTomat:
             
             battle_loop = 1
             while battle_loop <= battle_count:
+                start_battle_time = time.time()
                 print(f'Pętla walk: {battle_loop}')
                 # ------------------------------------------
                 # Tutaj delay na załadowanie okna startowego
                 # ------------------------------------------
                 # !!!!!!!! NIE ZMIENIAĆ !!!!!!!!
                 # ------------------------------------------
-                time.sleep(2)
+                #time.sleep(2) #works fine
+                time.sleep(0.3)
                 # ------------------------------------------
                 # heal
                 heal = self.driver.find_element(By.XPATH, f'/html/body/div[4]/div[1]/a[5]')
@@ -174,7 +180,8 @@ class AduTomat:
                 # ------------------------------------------
                 # !!!!!!!! NIE ZMIENIAĆ !!!!!!!!
                 # ------------------------------------------
-                time.sleep(2)
+                #time.sleep(2) #works fine
+                time.sleep(0.5)
                 # ------------------------------------------
                 
                 summon = self.driver.find_element(By.XPATH, f'//*[@id="player_1"]/div[6]/img[5]')
@@ -184,16 +191,17 @@ class AduTomat:
                 # ------------------------------------------
                 # tutaj delay miedzy summonem a klikaniem tarczy
                 # ------------------------------------------
-                time.sleep(1)
+                # time.sleep(1) # works fine
+                time.sleep(0.2)
                 # ------------------------------------------
                 
-                defend_count = 0
+                defend_count = 3
                 while defend_count <= 3:
                     try:
                         # ------------------------------------------
                         # tutaj delay pomiędzy kliklięciami tarczy
                         # ------------------------------------------
-                        time.sleep(0.3)
+                        time.sleep(0.15)
                         # ------------------------------------------
                         print(f'Klik Defend x {defend_count+1}')
                         defend = self.driver.find_element(By.XPATH, f'//*[@id="player_1"]/div[6]/img[1]')
@@ -206,7 +214,7 @@ class AduTomat:
                 # ------------------------------------------
                 # tutaj delay na przeliczenie ilości przeciwników
                 # ------------------------------------------
-                time.sleep(2)
+                time.sleep(0.15)
                 # ------------------------------------------
                 
                 wykryto_wrogow = 0
@@ -241,7 +249,8 @@ class AduTomat:
                         # ------------------------------------------
                         # Tutaj delay na załadowanie się "ludzika" 
                         # ------------------------------------------
-                        time.sleep(2)
+                        #time.sleep(1) # works fine
+                        time.sleep(0.15)
                         # ------------------------------------------
                         
                         try:
@@ -255,7 +264,8 @@ class AduTomat:
                             # ------------------------------------------
                             # Tutaj delay po kliknięciu ataku w głowę
                             # ------------------------------------------
-                            time.sleep(1)
+                            #time.sleep(1) works fine
+                            time.sleep(0.25)
                             # ------------------------------------------
                             
                         except NoSuchElementException:
@@ -275,11 +285,52 @@ class AduTomat:
                 # ------------------------------------------
                 # Tutaj delay na rozpoczęcie nowej rundy - klik Wyjdz z walki
                 # ------------------------------------------
-                time.sleep(1)
+                #time.sleep(0.2) # works fine
+                time.sleep(0.1)
                 # ------------------------------------------
                 quit_battle = self.driver.find_element(By.XPATH, f'//*[@id="fight_middleside"]/div[1]/div[1]/a')
                 quit_battle.click()
+                
+                # ------------------------------------------
+                # czasomierz
+                # ------------------------------------------
+                stop_battle_time = time.time()
+                total_time = stop_battle_time - start_battle_time
+                round_battle_time = round(total_time,2)
+            
+                print()
+                print('-'*20)
+                print(f'Wykonanie walki w {round_battle_time} sekund')
+                print('-'*20)
+                print()
+                # ------------------------------------------
+                
                 battle_loop += 1
+            # ------------------------------------------
+            # czasomierz
+            # ------------------------------------------
+            stop_total_time = time.time()
+            total_time = stop_total_time - start_total_time
+            round_total_time = round(total_time,2)
+        
+            print()
+            print('-'*20)
+            print(f'Wykonanie programu w {round_total_time} sekund')
+            print('-'*20)
+            print()
+            # ------------------------------------------
+                
+            
+            
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
     def close(self):
         print('koniec programu')
