@@ -153,23 +153,24 @@ class AduTomat:
             battle_loop = 1
             while battle_loop <= battle_count:
                 start_battle_time = time.time()
-                print(f'Pętla walk: {battle_loop}')
+                print(f'Walka {battle_loop} z {battle_count}')
+                print()
                 # ------------------------------------------
                 # Tutaj delay na załadowanie okna startowego
                 # ------------------------------------------
                 # !!!!!!!! NIE ZMIENIAĆ !!!!!!!!
                 # ------------------------------------------
                 #time.sleep(2) #works fine
-                time.sleep(0.3)
+                time.sleep(0.5)
                 # ------------------------------------------
                 # heal
                 heal = self.driver.find_element(By.XPATH, f'/html/body/div[4]/div[1]/a[5]')
-                print('heal')
+                #print('heal')
                 heal.click()
                 
                 # repair
                 repair = self.driver.find_element(By.XPATH, f'/html/body/div[4]/div[1]/a[6]')
-                print('repair')
+                #print('repair')
                 repair.click()
                 
                 help_for_pa = self.driver.find_element(By.XPATH, f'//*[@id="component_content"]/div[1]/hgroup/div/form[1]/input')
@@ -185,31 +186,31 @@ class AduTomat:
                 # ------------------------------------------
                 
                 summon = self.driver.find_element(By.XPATH, f'//*[@id="player_1"]/div[6]/img[5]')
-                print('przywołanie szkieletu')
+                #print('przywołanie szkieletu')
                 summon.click()
                 
                 # ------------------------------------------
                 # tutaj delay miedzy summonem a klikaniem tarczy
                 # ------------------------------------------
                 # time.sleep(1) # works fine
-                time.sleep(0.2)
+                #time.sleep(0.2)
                 # ------------------------------------------
                 
-                defend_count = 3
-                while defend_count <= 3:
-                    try:
-                        # ------------------------------------------
-                        # tutaj delay pomiędzy kliklięciami tarczy
-                        # ------------------------------------------
-                        time.sleep(0.15)
-                        # ------------------------------------------
-                        print(f'Klik Defend x {defend_count+1}')
-                        defend = self.driver.find_element(By.XPATH, f'//*[@id="player_1"]/div[6]/img[1]')
-                        defend.click()
-                        defend_count += 1
-                    except NoSuchElementException:
-                        print('nieznaleziono defend')
-                        defend_count += 1
+                # defend_count = 3
+                # while defend_count <= 3:
+                #     try:
+                #         # ------------------------------------------
+                #         # tutaj delay pomiędzy kliklięciami tarczy
+                #         # ------------------------------------------
+                #         #time.sleep(0.3)
+                #         # ------------------------------------------
+                #         print(f'Klik Defend x {defend_count+1}')
+                #         defend = self.driver.find_element(By.XPATH, f'//*[@id="player_1"]/div[6]/img[1]')
+                #         defend.click()
+                #         defend_count += 1
+                #     except NoSuchElementException:
+                #         print('nieznaleziono defend')
+                #         defend_count += 1
                         
                 # ------------------------------------------
                 # tutaj delay na przeliczenie ilości przeciwników
@@ -233,7 +234,7 @@ class AduTomat:
                 target_count = 1
                 liczba_wrogow = ((wykryto_wrogow*2)-1)
                 while target_count <= liczba_wrogow:
-                    print(f'Numer wroga: {target_count}')
+                    #print(f'Numer wroga: {target_count}')
                     try:
                         atak_aoe = self.driver.find_element(By.XPATH, f'/html/body/div/div[3]/div[5]/div[4]/div[{target_count}]/div[6]/img[1]')
                         
@@ -243,21 +244,21 @@ class AduTomat:
                         #time.sleep(1)
                         # ------------------------------------------
                         
-                        print(f'Atak AoE na : {target_count}')
+                        #print(f'Atak AoE na : {target_count}')
                         atak_aoe.click()
                         
                         # ------------------------------------------
                         # Tutaj delay na załadowanie się "ludzika" 
                         # ------------------------------------------
                         #time.sleep(1) # works fine
-                        time.sleep(0.15)
+                        time.sleep(0.35)
                         # ------------------------------------------
                         
                         try:
                             attack_head = self.driver.find_element(By.XPATH,
                                                             f"/html/body/div/div[3]/div[5]/div[4]/div[{target_count}]/div[1]/div[1]")
                             #print(f'wszukiwanie celu glowa przeciwnika nr :  {div_number}')
-                            print(f'atak w głowe przeciwnika nr :  {target_count}')
+                            #print(f'atak w głowe przeciwnika nr :  {target_count}')
                             print()
                             attack_head.click()
                             
@@ -265,11 +266,12 @@ class AduTomat:
                             # Tutaj delay po kliknięciu ataku w głowę
                             # ------------------------------------------
                             #time.sleep(1) works fine
-                            time.sleep(0.25)
+                            time.sleep(0.35)
                             # ------------------------------------------
                             
                         except NoSuchElementException:
-                            print(f"nie znaleziono celu - głowa: dla przeciwnika nr: {target_count}")
+                            #print(f"nie znaleziono celu - głowa: dla przeciwnika nr: {target_count}")
+                            pass
                             
                     except NoSuchElementException:
                         
@@ -279,14 +281,14 @@ class AduTomat:
                         #time.sleep(1)
                         # ------------------------------------------
                         
-                        print(f'brak celu: {target_count}')
+                        #print(f'brak celu: {target_count}')
                         target_count += 1
                         
                 # ------------------------------------------
                 # Tutaj delay na rozpoczęcie nowej rundy - klik Wyjdz z walki
                 # ------------------------------------------
                 #time.sleep(0.2) # works fine
-                time.sleep(0.1)
+                time.sleep(0.25)
                 # ------------------------------------------
                 quit_battle = self.driver.find_element(By.XPATH, f'//*[@id="fight_middleside"]/div[1]/div[1]/a')
                 quit_battle.click()
@@ -300,7 +302,7 @@ class AduTomat:
             
                 print()
                 print('-'*20)
-                print(f'Wykonanie walki w {round_battle_time} sekund')
+                print(f'Wykonanie walki nr {battle_loop} w {round_battle_time} sekund')
                 print('-'*20)
                 print()
                 # ------------------------------------------
