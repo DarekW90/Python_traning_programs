@@ -317,7 +317,7 @@ class AduTomat:
         
             print()
             print('-'*20)
-            print(f'Wykonanie programu w {round_total_time} sekund')
+            print(f'Wykonanie {battle_count} walk w {round_total_time} sekund')
             print('-'*20)
             print()
             # ------------------------------------------
