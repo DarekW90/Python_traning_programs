@@ -33,19 +33,24 @@ class AduTomat:
         time.sleep(2)
     
     def character_select(self):
-        print('Wybierz postać:')
-        print()
-        character_list = []
+        # print('Wybierz postać:')
+        # print()
+        # character_list = []
         # wyszukaj wszystkie postaci na stronie dostepne do zalogowania
         
-        characters = self.driver.find_elements(By.CLASS_NAME, 'charName')
+        # characters = self.driver.find_elements(By.CLASS_NAME, 'charName')
         
-        for character in characters:
-            splitted_character_text = character.text.split()
-            character_list.append(splitted_character_text[0])
+        # for character in characters:
+        #     splitted_character_text = character.text.split()
+        #     character_list.append(splitted_character_text[0])
         
         ''' dodano dla testów '''
         self.driver.find_element(By.XPATH, f'//*[@id="tabs"]/div[2]').click()
+        print()
+        print('-'*20)
+        print('Zatwierdź ENTER jeśli walka nie jest w toku')
+        input('-'*20)
+        
         
         ''' wyłączono do testów'''
         '''
@@ -84,8 +89,8 @@ class AduTomat:
         '''        
         
     def main_menu(self):
-        print('Gdzie chcesz przejść w menu:')
-        print()
+        # print('Gdzie chcesz przejść w menu:')
+        # print()
         menu_list = []
         # wyszukaj wszystkie postaci na stronie dostepne do zalogowania
         
@@ -98,8 +103,7 @@ class AduTomat:
             link_content = menu_option.get_attribute('href')
             menu_list.append((ref_content, link_content))
             
-            print(f'{index +1} : {ref_content}')
-            
+            #print(f'{index +1} : {ref_content}')
         while True:
             try:
                 print()
@@ -120,25 +124,35 @@ class AduTomat:
         print(fight_info.text)
         # organizacja wygrała do tej pory XXX walk
         fight_info_2 = self.driver.find_element(By.XPATH, f'//*[@id="component_content"]/div[2]/h1[3]')
+        print('='*40)
         print(fight_info_2.text)
         # weź udział
         join_fight = self.driver.find_element(By.XPATH, f'//*[@id="component_content"]/div[2]/h1[4]/a')
-        #print(join_fight.text)
-        while True:
-            try:
-                joining = input('Chcesz dołączyć (T/N)? ').upper()
-                if joining in ['T', 'Y']:
-                    join_fight.click()
-                    break
-                elif joining == 'N':
-                    print('Powrót do strony głównej')
-                    self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[1]/img').click()
-                    self.main_menu()
-                    break
-                else:
-                    print('Podano złą wartość')
-            except ValueError:
-                print('Podano złą wartość (T/N)')
+        adres_url = join_fight.get_attribute('href')
+        # Wyświetlenie adresu URL
+        print('='*40)
+        print(adres_url)
+        print('='*40)
+        self.driver.get(adres_url)
+        # dodano dla przyspieszenia
+        
+        #join_fight.click()
+        # #print(join_fight.text)
+        # while True:
+        #     try:
+        #         joining = input('Chcesz dołączyć (T/N)? ').upper()
+        #         if joining in ['T', 'Y']:
+        #             join_fight.click()
+        #             break
+        #         elif joining == 'N':
+        #             print('Powrót do strony głównej')
+        #             self.driver.find_element(By.XPATH, f'//*[@id="top_menu_content"]/a[1]/img').click()
+        #             self.main_menu()
+        #             break
+        #         else:
+        #             print('Podano złą wartość')
+        #     except ValueError:
+        #         print('Podano złą wartość (T/N)')
     
     def menu_walk(self):
         while True:
@@ -148,145 +162,182 @@ class AduTomat:
             int_check_pa = int(check_pa.text)
             print(f'Pozwala to na stoczenie >>> {math.floor(int_check_pa/10)}')
             print()
-            battle_count = int(input('Ile chcesz stoczyć walk : '))
+            #battle_count = int(input('Ile chcesz stoczyć walk : '))
+            #great_loop = int(input('Ile pętli? Jedna pętla to 32 walki! : '))
             
-            battle_loop = 1
-            while battle_loop <= battle_count:
-                start_battle_time = time.time()
-                print(f'Walka {battle_loop} z {battle_count}')
-                print()
-                # ------------------------------------------
-                # Tutaj delay na załadowanie okna startowego
-                # ------------------------------------------
-                # !!!!!!!! NIE ZMIENIAĆ !!!!!!!!
-                # ------------------------------------------
-                #time.sleep(2) #works fine
-                time.sleep(0.5)
-                # ------------------------------------------
-                # heal
-                heal = self.driver.find_element(By.XPATH, f'/html/body/div[4]/div[1]/a[5]')
-                #print('heal')
-                heal.click()
+            # dodano dla przyspieszenia
+            great_loop = 111
+            
+            little_loop = 1
+            
+            while little_loop <= great_loop:
                 
-                # repair
-                repair = self.driver.find_element(By.XPATH, f'/html/body/div[4]/div[1]/a[6]')
-                #print('repair')
-                repair.click()
-                
-                help_for_pa = self.driver.find_element(By.XPATH, f'//*[@id="component_content"]/div[1]/hgroup/div/form[1]/input')
-                help_for_pa.click()
-                
-                # ------------------------------------------
-                # tutaj delay na załadowanie planszy walki 
-                # ------------------------------------------
-                # !!!!!!!! NIE ZMIENIAĆ !!!!!!!!
-                # ------------------------------------------
-                #time.sleep(2) #works fine
-                time.sleep(0.5)
-                # ------------------------------------------
-                
-                summon = self.driver.find_element(By.XPATH, f'//*[@id="player_1"]/div[6]/img[5]')
-                #print('przywołanie szkieletu')
-                summon.click()
-                
-                # ------------------------------------------
-                # tutaj delay na przeliczenie ilości przeciwników
-                # ------------------------------------------
-                time.sleep(0.15)
-                # ------------------------------------------
-                
-                wykryto_wrogow = 0
-                
-                for x in range(2,20):
-                    element_name = f'player_{x}'
-                    elements = self.driver.find_elements(By.XPATH, f'//*[@id="{element_name}"]/div[2]')
-                    wykryto_wrogow += len(elements)
+                great_loop_start = time.time()
+                panel_boczny = self.driver.find_element(By.XPATH, f'/html/body/div[4]/div[1]/a[2]')
+                panel_boczny.click()
+                time.sleep(0.1)
+                fill_pa = self.driver.find_element(By.XPATH, f'/html/body/div[4]/div[2]/div/div[1]/input[2]')
+                fill_pa.click()
                     
-                print(f"Liczba znalezionych elementów 'player_x': {wykryto_wrogow}")
+                battle_count = 32
                 
-                #wykryto_wrogow = 15
-                
-                # input('przerwij program ręcznie')
-                
-                target_count = 1
-                liczba_wrogow = ((wykryto_wrogow*2)-1)
-                while target_count <= liczba_wrogow:
-                    #print(f'Numer wroga: {target_count}')
-                    try:
-                        atak_aoe = self.driver.find_element(By.XPATH, f'/html/body/div/div[3]/div[5]/div[4]/div[{target_count}]/div[6]/img[1]')
-                        atak_aoe.click()
+                battle_loop = 1
+                while battle_loop <= battle_count:
+                    start_battle_time = time.time()
+                    
+                    print(f'Great loop : {little_loop} z {great_loop}')
+                    print(f'Walka {battle_loop} z {battle_count}')
+                    print()
+                    # ------------------------------------------
+                    # Tutaj delay na załadowanie okna startowego
+                    # ------------------------------------------
+                    # !!!!!!!! NIE ZMIENIAĆ !!!!!!!!
+                    # ------------------------------------------
+                    #time.sleep(2) #works fine
+                    time.sleep(0.7)
+                    # ------------------------------------------
+                    # heal
+                    heal = self.driver.find_element(By.XPATH, f'/html/body/div[4]/div[1]/a[5]')
+                    #print('heal')
+                    heal.click()
+                    
+                    # repair
+                    repair = self.driver.find_element(By.XPATH, f'/html/body/div[4]/div[1]/a[6]')
+                    #print('repair')
+                    repair.click()
+                    
+                    help_for_pa = self.driver.find_element(By.XPATH, f'//*[@id="component_content"]/div[1]/hgroup/div/form[1]/input')
+                    help_for_pa.click()
+                    
+                    # ------------------------------------------
+                    # tutaj delay na załadowanie planszy walki 
+                    # ------------------------------------------
+                    # !!!!!!!! NIE ZMIENIAĆ !!!!!!!!
+                    # ------------------------------------------
+                    #time.sleep(2) #works fine
+                    print('ładowanie planszy')
+                    time.sleep(0.5)
+                    print('załadowało planszę')
+                    # ------------------------------------------
+                    
+                    summon = self.driver.find_element(By.XPATH, f'//*[@id="player_1"]/div[6]/img[5]')
+                    #print('przywołanie szkieletu')
+                    summon.click()
+                    
+                    # ------------------------------------------
+                    # tutaj delay na przeliczenie ilości przeciwników
+                    # ------------------------------------------
+                    time.sleep(0.15)
+                    # ------------------------------------------
+                    
+                    wykryto_wrogow = 0
+                    
+                    for x in range(2,20):
+                        element_name = f'player_{x}'
+                        elements = self.driver.find_elements(By.XPATH, f'//*[@id="{element_name}"]/div[2]')
+                        wykryto_wrogow += len(elements)
                         
-                        # ------------------------------------------
-                        # Tutaj delay na załadowanie się "ludzika" 
-                        # ------------------------------------------
-                        #time.sleep(1) # works fine
-                        time.sleep(0.35)
-                        # ------------------------------------------
-                        
+                    print(f"Liczba znalezionych elementów 'player_x': {wykryto_wrogow}")
+                    
+                    #wykryto_wrogow = 15
+                    
+                    # input('przerwij program ręcznie')
+                    
+                    target_count = 1
+                    liczba_wrogow = ((wykryto_wrogow*2)-1)
+                    while target_count <= liczba_wrogow:
+                        #print(f'Numer wroga: {target_count}')
                         try:
-                            attack_head = self.driver.find_element(By.XPATH,
-                                                            f"/html/body/div/div[3]/div[5]/div[4]/div[{target_count}]/div[1]/div[1]")
-                            attack_head.click()
+                            atak_aoe = self.driver.find_element(By.XPATH, f'/html/body/div/div[3]/div[5]/div[4]/div[{target_count}]/div[6]/img[1]')
+                            atak_aoe.click()
                             
                             # ------------------------------------------
-                            # Tutaj delay po kliknięciu ataku w głowę
+                            # Tutaj delay na załadowanie się "ludzika" 
                             # ------------------------------------------
-                            #time.sleep(1) works fine
-                            time.sleep(0.35)
+                            #time.sleep(1) # works fine
+                            '''
+                        
+            Tutaj ustawiasz opóźnienie na załadowanie ludzika
+                            '''
+                            time.sleep(0.3)
                             # ------------------------------------------
                             
+                            try:
+                                attack_head = self.driver.find_element(By.XPATH,
+                                                                f"/html/body/div/div[3]/div[5]/div[4]/div[{target_count}]/div[1]/div[1]")
+                                attack_head.click()
+                                print('head shot')
+                                
+                                # ------------------------------------------
+                                # Tutaj delay po kliknięciu ataku w głowę
+                                # ------------------------------------------
+                                #time.sleep(1) works fine
+                                '''
+                Tutaj ustawiasz opóźnienie po ataku na głowe 
+                                '''
+                                
+                                time.sleep(0.3)
+                                # ------------------------------------------
+                                
+                            except NoSuchElementException:
+                                #print(f"nie znaleziono celu - głowa: dla przeciwnika nr: {target_count}")
+                                pass
+                                
                         except NoSuchElementException:
-                            #print(f"nie znaleziono celu - głowa: dla przeciwnika nr: {target_count}")
-                            pass
                             
-                    except NoSuchElementException:
-                        
-                        # ------------------------------------------
-                        # Tutaj delay na wyszukanie następnego celu
-                        # ------------------------------------------
-                        #time.sleep(1)
-                        # ------------------------------------------
-                        
-                        #print(f'brak celu: {target_count}')
-                        target_count += 1
-                        
-                # ------------------------------------------
-                # Tutaj delay na rozpoczęcie nowej rundy - klik Wyjdz z walki
-                # ------------------------------------------
-                #time.sleep(0.2) # works fine
-                time.sleep(0.25)
-                # ------------------------------------------
-                quit_battle = self.driver.find_element(By.XPATH, f'//*[@id="fight_middleside"]/div[1]/div[1]/a')
-                quit_battle.click()
+                            # ------------------------------------------
+                            # Tutaj delay na wyszukanie następnego celu
+                            # ------------------------------------------
+                            #time.sleep(1)
+                            # ------------------------------------------
+                            
+                            #print(f'brak celu: {target_count}')
+                            target_count += 1
+                            
+                    # ------------------------------------------
+                    # Tutaj delay na rozpoczęcie nowej rundy - klik Wyjdz z walki
+                    # ------------------------------------------
+                    #time.sleep(0.2) # works fine
+                    time.sleep(0.25)
+                    # ------------------------------------------
+                    quit_battle = self.driver.find_element(By.XPATH, f'//*[@id="fight_middleside"]/div[1]/div[1]/a')
+                    quit_battle.click()
+                    
+                    # ------------------------------------------
+                    # czasomierz
+                    # ------------------------------------------
+                    stop_battle_time = time.time()
+                    total_time = stop_battle_time - start_battle_time
+                    round_battle_time = round(total_time,2)
                 
+                    print()
+                    print('-'*20)
+                    print(f'Wykonanie walki nr {battle_loop} w {round_battle_time} sekund')
+                    print('-'*20)
+                    print()
+                    # ------------------------------------------
+                    
+                    battle_loop += 1
                 # ------------------------------------------
                 # czasomierz
                 # ------------------------------------------
-                stop_battle_time = time.time()
-                total_time = stop_battle_time - start_battle_time
-                round_battle_time = round(total_time,2)
+                stop_total_time = time.time()
+                total_time = stop_total_time - start_total_time
+                round_total_time = round(total_time,2)
             
                 print()
                 print('-'*20)
-                print(f'Wykonanie walki nr {battle_loop} w {round_battle_time} sekund')
+                print(f'Wykonanie {battle_count} walk w {round_total_time} sekund')
                 print('-'*20)
                 print()
                 # ------------------------------------------
                 
-                battle_loop += 1
-            # ------------------------------------------
-            # czasomierz
-            # ------------------------------------------
-            stop_total_time = time.time()
-            total_time = stop_total_time - start_total_time
-            round_total_time = round(total_time,2)
-        
-            print()
-            print('-'*20)
-            print(f'Wykonanie {battle_count} walk w {round_total_time} sekund')
-            print('-'*20)
-            print()
-            # ------------------------------------------
+                little_loop += 1
+                
+            great_loop_stop = time.time()
+            great_loop_time = great_loop_start - great_loop_stop
+            print(f'Wykonano {great_loop} walk w czasie {great_loop_time}')
+            
             
     def close(self):
         print('koniec programu')
