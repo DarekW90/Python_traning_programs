@@ -1,16 +1,13 @@
 import csv
-import os
-
 
 class Item:
-    # class atribute
     pay_rate = 0.8  # The pay rate after 20% discount
     all = []
 
     def __init__(self, name: str, price: float, quantity=0):
-        # Run validations to the recived arguments
-        assert price >= 0, f'Price {price} is not greater than 0!'
-        assert quantity >= 0, f'Quantity {quantity} is not greater than 0!'
+        # run validation to the received arguments
+        assert price >= 0, f"Price {price} is not greater than or equal to zero!"
+        assert quantity >= 0, f"Quantity {quantity} is not greater than  or equal to zero!"
 
         # Assign to self object
         self.name = name
@@ -28,18 +25,9 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
-        # Pobierz pełną ścieżkę do aktualnego pliku
-        current_file_path = os.path.abspath(__file__)
-        current_directory = os.path.dirname(current_file_path)
-        # Połączenie z nazwą pliku
-        file_path = os.path.join(current_directory, 'items.csv')
-
-        with open(file_path, 'r') as f:
+        with open('items.csv', 'r') as f:
             reader = csv.DictReader(f)
             items = list(reader)
-
-        # for item in items:
-        #     print(item)
 
         for item in items:
             Item(
@@ -50,20 +38,18 @@ class Item:
 
     @staticmethod
     def is_integer(num):
-        # We will count out the floats that are point zero
-        # For i.e: 5.0, 10.0
         if isinstance(num, float):
-            # count out the floats that are point zero
             return num.is_integer()
         elif isinstance(num, int):
             return True
         else:
             return False
 
-    # __repr__ -> represent your object
-
     def __repr__(self):
-        return f'Item("{self.name}", {self.price}, {self.quantity})'
+        return f"Item('{self.name}', {self.price}, {self.quantity})"
 
 
-print(Item.is_integer(7.0))
+print(Item.is_integer(7))
+
+
+# Inheritance
